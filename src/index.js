@@ -10,6 +10,7 @@ let taskArray = [];
 let allDots = document.querySelectorAll('.main-list-list-task-dots');
 let allTaskDropdown = document.querySelectorAll('.main-list-list-task-dropdown');
 let allTaskLign = document.querySelectorAll('.main-list-list-lign');
+let allMainListListTask = document.querySelectorAll('.main-list-list-task');
 
 const sidebarEvents = (() => {
     // NAVBAR HAMBURGER    
@@ -30,7 +31,7 @@ const sidebarEvents = (() => {
         if (mainListTitle.textContent !== 'Inbox') {
             manageTasks.clearTaskList();
             displayInbox();
-            manageTasks.updateList();
+            manageTasks.updateList(taskArray);
         }
     });
 
@@ -41,6 +42,15 @@ const sidebarEvents = (() => {
             manageTasks.clearTaskList();
             displayToday();
         }
+        let allMainListListTask = document.querySelectorAll('.main-list-list-task');
+        let taskArrayToday = [];
+        for (let i = 0; i < taskArray.length; i++) {
+            if (taskArray[i].date === new Date().toISOString().slice(0, 10)) {
+                taskArrayToday.push(taskArray[i]);
+            }
+        } 
+        manageTasks.updateList(taskArrayToday);
+    
     });
 
     const clearMain = () => {
@@ -74,10 +84,9 @@ const manageTasks = (() => {
     }
 
      // UPDATE LIST
-    const updateList = () => {
-        for (let i = 0; i < taskArray.length; i++) {
-            console.log(taskArray);
-            if (taskArray[0].title) {
+    const updateList = (array) => {
+        for (let i = 0; i < array.length; i++) {
+            if (array[0].title) {
                 console.log('updating list');
                 let mainListListTask = document.createElement('div');
                 mainListListTask.classList.add('main-list-list-task')
@@ -143,6 +152,7 @@ const manageTasks = (() => {
         }
 
         const setAttribute = () => {
+            console.log('setting attribute');
             allMainListListTask = document.querySelectorAll('.main-list-list-task');
             allMainListListLign = document.querySelectorAll('.main-list-list-lign');
             allDots = document.querySelectorAll('.main-list-list-task-dots');
@@ -182,9 +192,6 @@ const manageTasks = (() => {
         const dropdown = (() => {
             allDots = document.querySelectorAll('.main-list-list-task-dots');
             allTaskDropdown = document.querySelectorAll('.main-list-list-task-dropdown');
-            console.log(allDots);
-            console.log(allTaskDropdown);
-            console.log(allTaskLign);
 
             allDots.forEach(dots => dots.addEventListener('click', event => {
                 allTaskDropdown[event.target.dataset.number].classList.add('main-list-list-task-dropdown-active');
@@ -207,7 +214,6 @@ const manageTasks = (() => {
         const dateInputButton = (() => {
             allDropdownDateInputButton.forEach(button => button.addEventListener('click', event => {
                 taskArray[event.target.dataset.number].date = allDropdownDateInputDate[event.target.dataset.number].value;
-                console.log(taskArray);
                 updateLocalStorage.saveLocal();
             }))
         })();
@@ -223,9 +229,6 @@ const manageTasks = (() => {
                 updateLocalStorage.saveLocal();
 
                 setAttribute();
-                console.log(allDots);
-                console.log(allTaskLign);
-                console.log(allTaskDropdown);
             }));
         })();
     }
@@ -282,7 +285,7 @@ const manageTasks = (() => {
             taskArray.push(newTask);
             updateLocalStorage.saveLocal();
             clearTaskList();
-            updateList();
+            updateList(taskArray);
             clearInput();
         } else {
             mainListAddTaskInput.placeholder = 'Please enter something';
@@ -314,7 +317,7 @@ const updateLocalStorage = (() => {
 
     const displayLocal = () => {
         getLocal();
-        manageTasks.updateList();
+        manageTasks.updateList(taskArray);
     };
 
     return { saveLocal, getLocal, displayLocal}
