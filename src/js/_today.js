@@ -1,18 +1,5 @@
-const displayInbox = () => {
-    const main = document.getElementById('main');
-
-    const mainContainer = document.getElementById('main-list-container');
-
-    const mainList = document.getElementById('main-list');
-    const mainListAdd = document.getElementById('main-list-add');
-    
-    const mainListTitle = document.getElementById('main-list-title');
-    mainListTitle.textContent = 'Today';
-
-    const mainListList = document.createElement('ul');
-    mainListList.classList.add('main-list-list');
-    mainListList.id = 'main-list-list';
-    mainList.appendChild(mainListList);
+const displayToday = () => {    
+    const mainListTitle = document.getElementById('main-list-title').textContent = 'Today';
 };
 
-export default displayInbox;
+export default displayToday;

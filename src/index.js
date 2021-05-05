@@ -6,28 +6,29 @@ import displayToday from './js/_today.js';
 displayInbox();
 
 let taskArray = [];
+let taskArrayToday = [];
 
-let allDots = document.querySelectorAll('.main-list-list-task-dots');
-let allTaskDropdown = document.querySelectorAll('.main-list-list-task-dropdown');
-let allTaskLign = document.querySelectorAll('.main-list-list-lign');
-let allMainListListTask = document.querySelectorAll('.main-list-list-task');
+const overlay = document.getElementById('overlay');
+const navbarHamburger = document.getElementById('navbar-hamburger');
+const mainSidebar = document.getElementById('main-sidebar');
+const inbox = document.getElementById('inbox');
+const today = document.getElementById('today');
+const mainContainer = document.getElementById('main-list-container');
+const mainListTitle = document.getElementById('main-list-title');
+const mainListList = document.getElementById('main-list-list');
+const mainListAdd = document.getElementById('main-list-add');
+const mainListAddTask = document.getElementById('main-list-add-task');
+const mainListAddTaskInput = document.getElementById('main-list-add-task-input');
+const mainListAddTaskInputAdd = document.getElementById('main-list-add-task-input-add');
+const mainListAddTaskInputCancel = document.getElementById('main-list-add-task-input-cancel');
 
 const sidebarEvents = (() => {
-    // NAVBAR HAMBURGER    
-    const navbarHamburger = document.getElementById('navbar-hamburger');
-    const mainSidebar = document.getElementById('main-sidebar');
-    const inbox = document.getElementById('inbox');
-    const today = document.getElementById('today');
-    let mainListTitle = document.getElementById('main-list-title');
-    let mainContainer = document.getElementById('main-list-container');
     
     navbarHamburger.addEventListener('click', () => {
         mainSidebar.classList.toggle('main-sidebar-closed');
     });
 
     inbox.addEventListener('click', () => {
-        mainListTitle = document.getElementById('main-list-title');
-        mainContainer = document.getElementById('main-list-container');
         if (mainListTitle.textContent !== 'Inbox') {
             manageTasks.clearTaskList();
             displayInbox();
@@ -36,14 +37,11 @@ const sidebarEvents = (() => {
     });
 
     today.addEventListener('click', () => {
-        mainListTitle = document.getElementById('main-list-title');
-        mainContainer = document.getElementById('main-list-container');
+        taskArrayToday = [];
         if (mainListTitle.textContent !== 'Today') {
             manageTasks.clearTaskList();
             displayToday();
         }
-        let allMainListListTask = document.querySelectorAll('.main-list-list-task');
-        let taskArrayToday = [];
         for (let i = 0; i < taskArray.length; i++) {
             if (taskArray[i].date === new Date().toISOString().slice(0, 10)) {
                 taskArrayToday.push(taskArray[i]);
@@ -61,24 +59,8 @@ const sidebarEvents = (() => {
 })();
 
 const manageTasks = (() => {
-    const mainListAdd = document.getElementById('main-list-add');
-    const mainListAddTask = document.getElementById('main-list-add-task');
-    const mainListAddTaskInputCancel = document.getElementById('main-list-add-task-input-cancel');
-    const mainListAddTaskInput = document.getElementById('main-list-add-task-input');
-    const mainListAddTaskInputAdd = document.getElementById('main-list-add-task-input-add');
-    const mainListList = document.getElementById('main-list-list');
-    let allMainListListTask = document.querySelectorAll('.main-list-list-task');
-    let allMainListListLign = document.querySelectorAll('.main-list-list-lign');
-    let allDeleteButton = document.querySelectorAll('.main-list-list-task-dropdown-delete');
-    let allDropdownDate = document.querySelectorAll('.main-list-list-task-dropdown-date');
-    let allDropdownDateInput = document.querySelectorAll('.main-list-list-task-dropdown-date-input');
-    let allDropdownDateInputDate = document.querySelectorAll('.main-list-list-task-dropdown-date-input-date');
-    let allDropdownDateInputButton = document.querySelectorAll('.main-list-list-task-dropdown-date-input-button');
 
-    const overlay = document.getElementById('overlay');
-
-    // FUNCTIONS
-        // ADD CONSTRUCTOR
+    // ADD CONSTRUCTOR
     const addTask = (title, project, date) => {
         return { title, project, date }
     }
@@ -118,7 +100,7 @@ const manageTasks = (() => {
                             // INPUT TYPE DATE 
                 let mainListListTaskDropdownDateInputDate = document.createElement('input');
                 mainListListTaskDropdownDateInputDate.type = 'date';
-                mainListListTaskDropdownDateInputDate.value = new Date().toISOString().slice(0, 10);
+                // mainListListTaskDropdownDateInputDate.value = new Date().toISOString().slice(0, 10);
                 mainListListTaskDropdownDateInputDate.classList.add('main-list-list-task-dropdown-date-input-date');
                 mainListListTaskDropdownDateInput.appendChild(mainListListTaskDropdownDateInputDate);
 
@@ -152,48 +134,59 @@ const manageTasks = (() => {
         }
 
         const setAttribute = () => {
+            let allMainListListTask = document.querySelectorAll('.main-list-list-task');
+            let allMainListListLign = document.querySelectorAll('.main-list-list-lign');
+            let allDots = document.querySelectorAll('.main-list-list-task-dots');
+            let allTaskDropdown = document.querySelectorAll('.main-list-list-task-dropdown');
+            let allDeleteButton = document.querySelectorAll('.main-list-list-task-dropdown-delete');
+            let allDropdownDate = document.querySelectorAll('.main-list-list-task-dropdown-date');
+            let allDropdownDateInput = document.querySelectorAll('.main-list-list-task-dropdown-date-input');
+            let allDropdownDateInputButton = document.querySelectorAll('.main-list-list-task-dropdown-date-input-button');
+            let allDropdownDateInputDate = document.querySelectorAll('.main-list-list-task-dropdown-date-input-date');
+            
             console.log('setting attribute');
-            allMainListListTask = document.querySelectorAll('.main-list-list-task');
-            allMainListListLign = document.querySelectorAll('.main-list-list-lign');
-            allDots = document.querySelectorAll('.main-list-list-task-dots');
-            allTaskLign = document.querySelectorAll('.main-list-list-lign');
-            allTaskDropdown = document.querySelectorAll('.main-list-list-task-dropdown');
-            allDeleteButton = document.querySelectorAll('.main-list-list-task-dropdown-delete');
-            allDropdownDate = document.querySelectorAll('.main-list-list-task-dropdown-date');
-            allDropdownDateInput = document.querySelectorAll('.main-list-list-task-dropdown-date-input');
-            allDropdownDateInputDate = document.querySelectorAll('.main-list-list-task-dropdown-date-input-date');
-            allDropdownDateInputButton = document.querySelectorAll('.main-list-list-task-dropdown-date-input-button');
-    
-            for (let i = 0; i < taskArray.length; i++) {
-                if (allMainListListTask[0]) {
-                    allMainListListTask[i].dataset.number = i;
-                    allMainListListLign[i].dataset.number = i;
-                    allDots[i].dataset.number = i;
-                    allTaskLign[i].dataset.number = i;
-                    allTaskDropdown[i].dataset.number = i;
-                    allDeleteButton[i].dataset.number = i;
-                    allDropdownDate[i].dataset.number = i;
-                    allDropdownDateInput[i].dataset.number = i;
-                    allDropdownDateInputButton[i].dataset.number = i;
+            if (mainListTitle.textContent == 'Inbox') {
+                for (let i = 0; i < taskArray.length; i++) {
+                    if (allMainListListTask[0]) {
+                        allMainListListTask[i].dataset.number = i;
+                        allMainListListLign[i].dataset.number = i;
+                        allDots[i].dataset.number = i;
+                        allTaskDropdown[i].dataset.number = i;
+                        allDeleteButton[i].dataset.number = i;
+                        allDropdownDate[i].dataset.number = i;
+                        allDropdownDateInput[i].dataset.number = i;
+                        allDropdownDateInputButton[i].dataset.number = i;
+                    }
+                    if (allMainListListTask[0]) {
+                        allDropdownDateInputDate[i].value = taskArray[i].date;
+                    }
+                }
+            } else if (mainListTitle.textContent == 'Today') {
+                for (let i = 0; i < taskArrayToday.length; i++) {
+                    if (allMainListListTask[0]) {
+                        allMainListListTask[i].dataset.number = i;
+                        allMainListListLign[i].dataset.number = i;
+                        allDots[i].dataset.number = i;
+                        allTaskDropdown[i].dataset.number = i;
+                        allDeleteButton[i].dataset.number = i;
+                        allDropdownDate[i].dataset.number = i;
+                        allDropdownDateInput[i].dataset.number = i;
+                        allDropdownDateInputButton[i].dataset.number = i;
+                    }
+                    if (allMainListListTask[0]) {
+                        allDropdownDateInputDate[i].value = taskArray[i].date;
+                    }
                 }
             }
-
-            for (let i = 0; i < taskArray.length; i++) {
-                if (allMainListListTask[0]) {
-                    allDropdownDateInputDate[i].value = taskArray[i].date;
-                }
-            }
+            
         };
 
-        let allDeleteButton = document.querySelectorAll('.main-list-list-task-dropdown-delete');
-        let allTaskLign = document.querySelectorAll('.main-list-list-lign');
-        let allMainListListTask = document.querySelectorAll('.main-list-list-task');
-
         const dropdown = (() => {
-            allDots = document.querySelectorAll('.main-list-list-task-dots');
-            allTaskDropdown = document.querySelectorAll('.main-list-list-task-dropdown');
-
+            let allDots = document.querySelectorAll('.main-list-list-task-dots');
+            
             allDots.forEach(dots => dots.addEventListener('click', event => {
+                const allTaskDropdown = document.querySelectorAll('.main-list-list-task-dropdown');
+                console.log(allTaskDropdown);
                 allTaskDropdown[event.target.dataset.number].classList.add('main-list-list-task-dropdown-active');
                 overlay.classList.add('overlay-active');
             }));
@@ -205,6 +198,9 @@ const manageTasks = (() => {
         })()
 
         const displayDateInput = (() => {
+            let allDropdownDate = document.querySelectorAll('.main-list-list-task-dropdown-date');
+            let allDropdownDateInput = document.querySelectorAll('.main-list-list-task-dropdown-date-input');
+
             allDropdownDate.forEach(item => item.addEventListener('click', event => {
                 event.target.classList.add('main-list-list-task-dropdown-date-inactive');
                 allDropdownDateInput[event.target.dataset.number].classList.add('main-list-list-task-dropdown-date-input-active');
@@ -212,18 +208,26 @@ const manageTasks = (() => {
         })();
 
         const dateInputButton = (() => {
+            let allDropdownDateInputButton = document.querySelectorAll('.main-list-list-task-dropdown-date-input-button');
+            let allDropdownDateInputDate = document.querySelectorAll('.main-list-list-task-dropdown-date-input-date');
+
             allDropdownDateInputButton.forEach(button => button.addEventListener('click', event => {
                 taskArray[event.target.dataset.number].date = allDropdownDateInputDate[event.target.dataset.number].value;
                 updateLocalStorage.saveLocal();
+                console.log(taskArray);
+                console.log('input button')
             }))
         })();
 
         const deleteTask = (() => {
+            let allDeleteButton = document.querySelectorAll('.main-list-list-task-dropdown-delete');
+            let allMainListListLign = document.querySelectorAll('.main-list-list-lign');
+
             allDeleteButton.forEach(button => button.addEventListener('click', event => {
                 overlay.classList.remove('overlay-active');
                 // allMainListListTask[event.target.dataset.number].remove();
                 event.target.parentNode.parentNode.remove();
-                allTaskLign[event.target.dataset.number].remove();
+                allMainListListLign[event.target.dataset.number].remove();
                 allTaskDropdown[event.target.dataset.number].remove();
                 taskArray.splice(event.target.dataset.number, 1);
                 updateLocalStorage.saveLocal();
@@ -252,6 +256,10 @@ const manageTasks = (() => {
     }
 
     const resetDropdown = () => {
+        let allTaskDropdown = document.querySelectorAll('.main-list-list-task-dropdown');
+        let allDropdownDate = document.querySelectorAll('.main-list-list-task-dropdown-date');
+        let allDropdownDateInput = document.querySelectorAll('.main-list-list-task-dropdown-date-input');
+
         for (let i = 0; i < allDropdownDate.length; i++) {
             allDropdownDate[i].classList.remove('main-list-list-task-dropdown-date-inactive');
             allDropdownDateInput[i].classList.remove('main-list-list-task-dropdown-date-input-active');  
@@ -318,6 +326,7 @@ const updateLocalStorage = (() => {
     const displayLocal = () => {
         getLocal();
         manageTasks.updateList(taskArray);
+        console.log(taskArray);
     };
 
     return { saveLocal, getLocal, displayLocal}
