@@ -1,0 +1,158 @@
+.main-list-container {
+    width: 100%;
+    height: 100%;
+    background-color: $colorDarkest;
+    color: $colorLight;
+}
+
+.main-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+   
+    &-title {
+        align-self: flex-start;
+    }
+
+    &-list {
+        width: 100%;
+        margin-top: 2rem;
+
+        &-task {
+            position: relative;
+
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &:not(:first-child) {
+                margin-top: 1rem;
+            }
+
+            & > li {
+                font-size: 20px;
+            }
+
+            &-dots {
+                background: url('./img/dots.svg');
+                background-size: contain;
+                background-repeat: no-repeat;
+                display: flex;
+                height: 0.5rem;
+                width: 1.5rem;
+                cursor: pointer;
+            }
+        }
+
+        &-lign {
+            display: flex;
+            width: 100%;
+            height: 0.1rem;
+            background-color: $colorLight;
+        }
+    }
+
+    &-add {
+        width: 100%;
+        margin-top: 1rem;
+        font-size: 20px;
+        align-self: flex-start;
+        cursor: pointer;
+
+        &-inactive {
+            display: none;
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &-task {
+            display: none;
+            width: 100%;
+            height: 2.5rem;
+            margin-top: 1rem;
+
+            &-input {
+                padding: 0.5rem;
+
+                background-color: $colorDarkest;
+                border: solid 0.1rem $colorDarker;
+                border-right: none;
+                color: $colorLight;
+                font-size: 20px;
+                width: 90%;
+            }
+
+            &-active {
+                display: flex;
+            }
+
+            & > button {
+                width: 10%;
+                color: $colorLight;
+                background-color: $colorDarker;
+                font-size: 20px;
+                border: none;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $colorDark;
+                    color: $colorDarkest;
+                    border: solid 0.1rem $colorDarker;
+                }
+            }
+
+            & > button:first-of-type {
+                border-right: none;
+            }
+
+            & > button:last-of-type {
+                border-left: none;
+            }
+        }
+    }
+}
+
+.main-list-list-task-dropdown {
+    z-index: 2;
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    padding: 0.2rem 0 0.2rem 0.5rem;
+    top: 0;
+    right: 0;
+    width: 10rem;
+    overflow: hidden;
+    height: 3rem;
+    background-color: $colorDark;
+    font-size: 20px;
+
+    &-active {
+        display: flex;
+    }
+
+    &-delete {
+        cursor: pointer;
+    }
+}
+
+.main-list-list-task-dropdown-date {
+
+    &-inactive {
+        display: none;
+    }
+}
+
+.main-list-list-task-dropdown-date-input {
+    display: none;
+
+    &-active {
+        display: flex;
+    }
+}

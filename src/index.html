@@ -3,9 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Todo List</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
+
+    <header id="header">
+
+    </header>
+
+    <main id="main">
+
+        <div class="main-sidebar" id="main-sidebar"></div>
+
+        <div class="main-list-container" id="main-list-container">
+
+            <div class="main-list" id="main-list">
+                <div class="main-list-title" id="main-list-title"></div>
+                <ul class="main-list-list" id="main-list-list">
+                    <div class="main-list-add" id="main-list-add"><div class="main-sidebar-list-day"><div class="main-plus"><span></span><span></span></div><li>Add a task</li></div></div>
+                    <div class="main-list-add-task" id="main-list-add-task"><input type="text" class="main-list-add-task-input" id="main-list-add-task-input"><button id="main-list-add-task-input-cancel">x</button><button id="main-list-add-task-input-add">+</button></div>
+                </ul>
+            </div>
+
+        </div>
+
+    </main>
+
+    <div id="overlay" class="overlay"></div>
     
-    <script src="index.js"></script>
+    <script src="index.js" type="module"></script>
+
 </body>
 </html>

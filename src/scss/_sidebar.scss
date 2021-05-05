@@ -1,0 +1,54 @@
+.main-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 20rem;
+    height: 100%;
+    background-color: $colorDark;
+    color: $colorLight;
+
+    &-closed {
+        display: none;
+    }
+
+    &-list {
+        margin: 0;
+        padding: 1rem 2.5rem;
+
+        &-day {
+            display: flex;
+            align-items: center;
+            grid-gap: 1rem;
+
+            & > li {
+                font-size: 20px;
+                cursor: pointer;
+                padding: 0.3rem;
+            }
+        }
+
+        &-title {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            grid-gap: 1rem;
+            width: 100%;
+            font-weight: 100;
+            font-size: 20px;
+            padding: 0rem 2.5rem;
+            font-size: 20px;
+            list-style-type: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+
+        }
+    }
+
+    &-add {
+        font-size: 20px;
+        cursor: pointer;
+        list-style-type: none;
+    }
+}

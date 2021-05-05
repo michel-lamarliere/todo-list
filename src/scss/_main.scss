@@ -1,0 +1,33 @@
+.main {
+
+    &-dot {
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 0.5rem;
+        border: solid 0.1rem $colorLight;
+        cursor: pointer;
+    }
+
+    &-plus {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 1rem;
+        height: 1rem;
+        cursor: pointer;
+
+        & > span:first-child {
+            width: 1rem;
+            height: 0.1rem;
+            background-color: $colorLight;
+        }
+
+        & > span:last-child {
+            position: absolute;
+            height: 1rem;
+            width: 0.1rem;
+            background-color: $colorLight;
+
+        }
+    }
+}

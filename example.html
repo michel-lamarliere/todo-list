@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+
+    <header id="header">
+
+        <div class="navbar">
+            <div class="navbar-hamburger" id="navbar-hamburger">
+                <span class="navbar-hamburger-lign"></span>
+                <span class="navbar-hamburger-lign"></span>
+                <span class="navbar-hamburger-lign"></span>
+            </div>
+    
+            <div class="navbar-home">Home</div>
+    
+            <div class="navbar-searchbar">
+                <input type="search" class="navbar-searchbar-input" placeholder="Search">
+            </div>
+        </div>
+
+    </header>
+
+    <main>
+
+        <div class="main-sidebar" id="main-sidebar">
+            <ul class="main-sidebar-list">
+                <div class="main-sidebar-list-day">
+                    <div class="main-dot"></div>
+                    <li>Inbox</li>
+                </div>
+                <div class="main-sidebar-list-day">
+                    <div class="main-dot"></div>
+                    <li>Today</li>
+                </div>
+                <div class="main-sidebar-list-day">
+                    <div class="main-dot"></div>
+                    <li>Tomorrow</li>
+                </div>
+                <div class="main-sidebar-list-day">
+                    <div class="main-dot"></div>
+                    <li>Upcoming</li>
+                </div>
+                <div class="main-sidebar-list-day">
+                    <div class="main-dot"></div>
+                    <li>No Date</li>
+                </div>
+            </ul>
+
+            <h1 class="main-sidebar-list-title">
+                <div class="main-plus">
+                    <span></span>
+                    <span></span>
+                </div>
+                <li>Add Project</li>
+            </h1>
+            <h1 class="main-sidebar-list-title">Projects (2)</h1>
+            <ul class="main-sidebar-list">
+                <div class="main-sidebar-list-day">
+                    <div class="main-dot"></div>
+                    <li>Chores</li>
+                </div>
+                <div class="main-sidebar-list-day">
+                    <div class="main-dot"></div>
+                    <li>Groceries</li>
+                </div>
+            </ul>
+        </div>
+
+        <div class="main-list-container">
+            <div class="main-list">
+
+                <div class="main-list-title">Inbox</div>
+
+                <ul class="main-list-list" id="main-list-list">
+                    <!--
+                    <div class="main-list-list-task">
+                        <div class="main-sidebar-list-day">
+                            <div class="main-dot"></div>
+                            <li>Test Lign</li>
+                        </div>
+                        <div class="main-list-list-task-dots" id="dots">
+                            <span class="main-list-list-task-dots-dot"></span>
+                            <span class="main-list-list-task-dots-dot"></span>
+                            <span class="main-list-list-task-dots-dot"></span>
+                            <ul id="main-list-list-task-dropdown" class="main-list-list-task-dropdown">
+                                <li class="main-list-list-task-dropdown-date" id="main-list-list-task-dropdown-date">Date</li>
+                                <li class="main-list-list-task-dropdown-date-input" id="main-list-list-task-dropdown-date-input">
+                                    <input type="date" id="main-list-list-task-dropdown-date-input-date">
+                                    <button class="main-list-list-task-dropdown-date-input-button">Ok</button>
+                                </li>
+                                <li class="main-list-list-task-delete">Delete</li>                        
+                            </ul>
+                        </div>
+
+                    </div>
+                    <span class="main-list-list-lign"></span>
+                    -->
+                    
+                <div class="main-list-add" id="main-list-add">
+                    <div class="main-sidebar-list-day">
+                        <div class="main-plus">
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <li>Add a task</li>
+                    </div>
+                </div>
+                <div class="main-list-add-task" id="main-list-add-task">
+                    <input type="text" class="main-list-add-task-input" id="main-list-add-task-input" placeholder="New Task">
+                    <button id="main-list-add-task-input-cancel">x</button>
+                    <button id="main-list-add-task-input-add">+</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="overlay" class="overlay"></div>
+    
+    <script src="index.js" type="module"></script>
+
+</body>
+</html>
