@@ -35,8 +35,8 @@
 }
 
 .main-dot {
-  width: 0.5rem;
-  height: 0.5rem;
+  width: 0.75rem;
+  height: 0.75rem;
   border-radius: 0.5rem;
   border: solid 0.1rem #FFFFFF;
   cursor: pointer;
@@ -51,24 +51,24 @@
 }
 .main-plus > span:first-child {
   width: 1rem;
-  height: 0.1rem;
+  height: 0.2rem;
   background-color: #FFFFFF;
 }
 .main-plus > span:last-child {
   position: absolute;
   height: 1rem;
-  width: 0.1rem;
+  width: 0.2rem;
   background-color: #FFFFFF;
 }
 
-.main-list-container {
+.list-container {
   width: 100%;
   height: 100%;
   background-color: #1F1F1F;
   color: #FFFFFF;
 }
 
-.main-list {
+.list {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -77,27 +77,27 @@
   margin-right: auto;
   margin-top: 2rem;
 }
-.main-list-title {
+.list-title {
   align-self: flex-start;
 }
-.main-list-list {
+.list-list {
   width: 100%;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
-.main-list-list-task {
+.list-list-task {
   position: relative;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.main-list-list-task:not(:first-child) {
+.list-list-task:not(:first-child) {
   margin-top: 1rem;
 }
-.main-list-list-task > li {
+.list-list-task > li {
   font-size: 20px;
 }
-.main-list-list-task-dots {
+.list-list-task-dots {
   background: url("./img/dots.svg");
   background-size: contain;
   background-repeat: no-repeat;
@@ -105,33 +105,152 @@
   height: 0.5rem;
   width: 1.5rem;
   cursor: pointer;
+  z-index: 1;
 }
-.main-list-list-lign {
+.list-list-task-text {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+.list-list-task-text-title {
+  margin-left: 1rem;
+}
+.list-list-task-dropdown {
+  z-index: 2;
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  top: 0;
+  right: 0;
+  width: 11rem;
+  overflow: hidden;
+  background-color: #4D4D4D;
+  font-size: 20px;
+}
+.list-list-task-dropdown-active {
+  display: flex;
+}
+.list-list-task-dropdown-project {
+  display: flex;
+  border: solid 0.2rem #4D4D4D;
+  border-bottom: none;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.list-list-task-dropdown-project:hover {
+  background-color: #1F1F1F;
+}
+.list-list-task-dropdown-project-inactive {
+  display: none;
+}
+.list-list-task-dropdown-project-input {
+  display: none;
+}
+.list-list-task-dropdown-project-input-active {
+  display: flex;
+}
+.list-list-task-dropdown-project-input-input {
+  background-color: #1F1F1F;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border: solid 0.2rem #4D4D4D;
+  border-bottom: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: #FFFFFF;
+  font-size: 20px;
+}
+.list-list-task-dropdown-project-input-button {
+  background-color: #333333;
+  border: none;
+  width: 20%;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+.list-list-task-dropdown-project-input-button:active {
+  background-color: #FFFFFF;
+  color: #1F1F1F;
+}
+.list-list-task-dropdown-date {
+  display: flex;
+  border: solid 0.2rem #4D4D4D;
+  border-bottom: none;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.list-list-task-dropdown-date:hover {
+  background-color: #1F1F1F;
+}
+.list-list-task-dropdown-date-inactive {
+  display: none;
+}
+.list-list-task-dropdown-date-input {
+  display: none;
+  padding: 0.5rem;
+  height: 2rem;
+  cursor: pointer;
+}
+.list-list-task-dropdown-date-input-active {
+  display: flex;
+}
+.list-list-task-dropdown-date-input-date {
+  padding: 0.1rem;
+  width: 80%;
+}
+.list-list-task-dropdown-date-input-button {
+  background-color: #333333;
+  border: none;
+  width: 20%;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+.list-list-task-dropdown-date-input-button:active {
+  background-color: #FFFFFF;
+  color: #1F1F1F;
+}
+.list-list-task-dropdown-delete {
+  border: solid 0.2rem #4D4D4D;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.list-list-task-dropdown-delete:hover {
+  background-color: #1F1F1F;
+}
+.list-list-lign {
   display: flex;
   width: 100%;
   height: 0.1rem;
   background-color: #FFFFFF;
 }
-.main-list-add {
+.list-add {
+  display: flex;
   width: 100%;
-  margin-top: 1rem;
+  margin-top: 2rem;
+  height: 2.5rem;
   font-size: 20px;
   align-self: flex-start;
   cursor: pointer;
 }
-.main-list-add-inactive {
+.list-add-inactive {
   display: none;
 }
-.main-list-add:hover {
+.list-add:hover {
   text-decoration: underline;
 }
-.main-list-add-task {
+.list-add-add {
+  display: flex;
+  align-items: center;
+  grid-gap: 1rem;
+}
+.list-add-task, .sidebar-projects-add-project {
   display: none;
   width: 100%;
   height: 2.5rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
+  z-index: 2;
 }
-.main-list-add-task-input {
+.list-add-task-input, .sidebar-projects-add-project-input {
   padding: 0.5rem;
   background-color: #1F1F1F;
   border: solid 0.1rem #333333;
@@ -140,10 +259,10 @@
   font-size: 20px;
   width: 90%;
 }
-.main-list-add-task-active {
+.list-add-task-active {
   display: flex;
 }
-.main-list-add-task > button {
+.list-add-task > button, .sidebar-projects-add-project > button {
   width: 10%;
   color: #FFFFFF;
   background-color: #333333;
@@ -151,95 +270,150 @@
   border: none;
   cursor: pointer;
 }
-.main-list-add-task > button:hover {
+.list-add-task > button:hover, .sidebar-projects-add-project > button:hover {
   background-color: #4D4D4D;
   color: #1F1F1F;
   border: solid 0.1rem #333333;
 }
-.main-list-add-task > button:first-of-type {
+.list-add-task > button:first-of-type, .sidebar-projects-add-project > button:first-of-type {
   border-right: none;
 }
-.main-list-add-task > button:last-of-type {
+.list-add-task > button:last-of-type, .sidebar-projects-add-project > button:last-of-type {
   border-left: none;
 }
 
-.main-list-list-task-dropdown {
-  z-index: 2;
-  position: absolute;
-  display: none;
-  flex-direction: column;
-  padding: 0.2rem 0 0.2rem 0.5rem;
-  top: 0;
-  right: 0;
-  width: 10rem;
-  overflow: hidden;
-  height: 3rem;
-  background-color: #4D4D4D;
-  font-size: 20px;
-}
-.main-list-list-task-dropdown-active {
-  display: flex;
-}
-.main-list-list-task-dropdown-delete {
-  cursor: pointer;
-}
-
-.main-list-list-task-dropdown-date-inactive {
-  display: none;
-}
-
-.main-list-list-task-dropdown-date-input {
-  display: none;
-}
-.main-list-list-task-dropdown-date-input-active {
-  display: flex;
-}
-
-.main-sidebar {
+.sidebar {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding: 2rem 2rem;
   width: 20rem;
   height: 100%;
   background-color: #4D4D4D;
   color: #FFFFFF;
 }
-.main-sidebar-closed {
+.sidebar-closed {
   display: none;
 }
-.main-sidebar-list {
+.sidebar-list-title {
+  display: flex;
+  align-items: center;
+  grid-gap: 1rem;
+}
+.sidebar-list-title > li {
+  font-size: 20px;
+  cursor: pointer;
+}
+.sidebar-list-title:not(:last-of-type) {
+  padding-bottom: 0.5rem;
+}
+.sidebar-projects {
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  margin-top: 2rem;
+}
+.sidebar-projects-title {
+  font-size: 20px;
   margin: 0;
-  padding: 1rem 2.5rem;
 }
-.main-sidebar-list-day {
+.sidebar-projects-title:not(:last-of-type) {
+  margin-bottom: 1rem;
+}
+.sidebar-projects-add {
   display: flex;
   align-items: center;
-  grid-gap: 1rem;
-}
-.main-sidebar-list-day > li {
   font-size: 20px;
   cursor: pointer;
-  padding: 0.3rem;
 }
-.main-sidebar-list-title {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  grid-gap: 1rem;
-  width: 100%;
-  font-weight: 100;
-  font-size: 20px;
-  padding: 0rem 2.5rem;
-  font-size: 20px;
-  list-style-type: none;
+.sidebar-projects-add-inactive {
+  display: none;
 }
-.main-sidebar-list-title:hover {
+.sidebar-projects-add:hover {
   text-decoration: underline;
 }
-.main-sidebar-add {
+.sidebar-projects-add-title {
+  margin-left: 0.5rem;
+}
+.sidebar-projects-add-project {
+  margin-top: 0.5rem;
+  z-index: 2;
+}
+.sidebar-projects-add-project-active {
+  display: flex;
+}
+.sidebar-projects-add-project > button {
+  width: 20%;
+  color: #FFFFFF;
+  background-color: #333333;
   font-size: 20px;
+  border: none;
   cursor: pointer;
-  list-style-type: none;
+}
+.sidebar-projects-add-project > button:hover {
+  background-color: #4D4D4D;
+  color: #1F1F1F;
+  border: solid 0.1rem #333333;
+}
+.sidebar-projects-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  font-size: 20px;
+  width: 100%;
+}
+.sidebar-projects-list-project {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sidebar-projects-list-project:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+.sidebar-projects-list-project-title {
+  margin-left: 1rem;
+  cursor: pointer;
+}
+.sidebar-projects-list-project-dots {
+  background: url("./img/dots.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: flex;
+  height: 0.5rem;
+  width: 1.5rem;
+  cursor: pointer;
+  justify-self: flex-end;
+  z-index: 2;
+}
+.sidebar-projects-list-project-dropdown {
+  z-index: 2;
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  top: 0;
+  right: 0;
+  width: 4rem;
+  overflow: hidden;
+  background-color: #4D4D4D;
+  font-size: 20px;
+}
+.sidebar-projects-list-project-dropdown-active {
+  display: flex;
+}
+.sidebar-projects-list-project-dropdown-delete {
+  padding: 0.2rem;
+  cursor: pointer;
+  background-color: #1F1F1F;
+}
+.sidebar-projects-list-project-dropdown-delete:hover {
+  background-color: #333333;
+}
+
+.dot-text {
+  display: flex;
+  align-items: center;
 }
 
 body {

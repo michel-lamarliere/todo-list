@@ -1,11 +1,11 @@
-.main-list-container {
+.list-container {
     width: 100%;
     height: 100%;
     background-color: $colorDarkest;
     color: $colorLight;
 }
 
-.main-list {
+.list {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,11 +20,10 @@
 
     &-list {
         width: 100%;
-        margin-top: 2rem;
+        margin-top: 1rem;
 
         &-task {
             position: relative;
-
             width: 100%;
             display: flex;
             align-items: center;
@@ -46,9 +45,140 @@
                 height: 0.5rem;
                 width: 1.5rem;
                 cursor: pointer;
+                z-index: 1;
             }
-        }
 
+            &-text {
+                font-size: 20px;
+                display: flex;
+                align-items: center;
+
+                &-title {
+                    margin-left: 1rem;
+                }
+            }
+
+            &-dropdown {
+                z-index: 2;
+                position: absolute;
+                display: none;
+                flex-direction: column;
+                top: 0;
+                right: 0;
+                width: 11rem;
+                overflow: hidden;
+                background-color: $colorDark;
+                font-size: 20px;
+            
+                &-active {
+                    display: flex;
+                }
+
+                &-project {
+                    display: flex;
+                    border: solid 0.2rem $colorDark;
+                    border-bottom: none;
+                    padding: 0.5rem;
+                    cursor: pointer;
+            
+                    &:hover {
+                        background-color: $colorDarkest;
+                    }
+
+                    &-inactive {
+                        display: none;
+                    }
+
+                    &-input {
+                        display: none;
+
+                        &-active {
+                            display: flex;
+                        }
+
+                        &-input {
+                            background-color: $colorDarkest;
+                            width: 100%;
+                            display: flex;
+                            justify-content: space-between;
+                            border: solid 0.2rem $colorDark;
+                            border-bottom: none;
+                            padding: 0.5rem;
+                            cursor: pointer;
+                            color: $colorLight;
+                            font-size: 20px;
+                        }
+
+                        &-button {
+                            background-color: $colorDarker;
+                            border: none;
+                            width: 20%;
+                            color: $colorLight;
+                            cursor: pointer;
+
+                            &:active {
+                                background-color: $colorLight;
+                                color: $colorDarkest;
+                            }
+                        }
+                    }
+                }
+            
+                &-date {
+                    display: flex;
+                    border: solid 0.2rem $colorDark;
+                    border-bottom: none;
+                    padding: 0.5rem;
+                    cursor: pointer;
+            
+                    &:hover {
+                        background-color: $colorDarkest;
+                    }
+                
+                    &-inactive {
+                        display: none;
+                    }
+                    &-input {
+                        display: none;
+                        padding: 0.5rem;
+                        height: 2rem;
+                        cursor: pointer;
+            
+                        &-active {
+                            display: flex;
+                        }
+            
+                        &-date {
+                            padding: 0.1rem;
+                            width: 80%;
+                        }
+            
+                        &-button {
+                            background-color: $colorDarker;
+                            border: none;
+                            width: 20%;
+                            color: $colorLight;
+                            cursor: pointer;
+
+                            &:active {
+                                background-color: $colorLight;
+                                color: $colorDarkest;
+                            }
+                        }
+                    }
+                }
+                &-delete {
+                    border: solid 0.2rem $colorDark;
+                    padding: 0.5rem;
+                    cursor: pointer;
+            
+                    &:hover {
+                        background-color: $colorDarkest;
+                    }
+                }
+            }   
+        }
+        
         &-lign {
             display: flex;
             width: 100%;
@@ -58,8 +188,10 @@
     }
 
     &-add {
+        display: flex;
         width: 100%;
-        margin-top: 1rem;
+        margin-top: 2rem;
+        height: 2.5rem;
         font-size: 20px;
         align-self: flex-start;
         cursor: pointer;
@@ -72,15 +204,21 @@
             text-decoration: underline;
         }
 
+        &-add {
+            display: flex;
+            align-items: center;
+            grid-gap: 1rem;
+        }
+
         &-task {
             display: none;
             width: 100%;
             height: 2.5rem;
-            margin-top: 1rem;
+            margin-top: 2rem;
+            z-index: 2;
 
             &-input {
                 padding: 0.5rem;
-
                 background-color: $colorDarkest;
                 border: solid 0.1rem $colorDarker;
                 border-right: none;
@@ -116,43 +254,5 @@
                 border-left: none;
             }
         }
-    }
-}
-
-.main-list-list-task-dropdown {
-    z-index: 2;
-    position: absolute;
-    display: none;
-    flex-direction: column;
-    padding: 0.2rem 0 0.2rem 0.5rem;
-    top: 0;
-    right: 0;
-    width: 10rem;
-    overflow: hidden;
-    height: 3rem;
-    background-color: $colorDark;
-    font-size: 20px;
-
-    &-active {
-        display: flex;
-    }
-
-    &-delete {
-        cursor: pointer;
-    }
-}
-
-.main-list-list-task-dropdown-date {
-
-    &-inactive {
-        display: none;
-    }
-}
-
-.main-list-list-task-dropdown-date-input {
-    display: none;
-
-    &-active {
-        display: flex;
     }
 }
