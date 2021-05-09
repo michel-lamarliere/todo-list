@@ -11,8 +11,8 @@ const displayInbox = () => {
 
 const displayOverdue = () => {
     listTitle.textContent = 'Overdue';
-    // fLocalStorage.getLocalStorage();
-    // fTasks.displayTasks();
+    fLocalStorage.getLocalStorage();
+    fTasks.displayTasks();
 }
 
 const displayToday = () => {    

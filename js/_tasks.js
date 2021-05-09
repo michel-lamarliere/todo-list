@@ -7,7 +7,6 @@ const listTitle = document.getElementById('list-title');
 
 const fTasks = (() => {
 
-
     // TASKS INPUT AND BUTTONS
     const listAdd = document.getElementById('list-add');
     const listAddTask = document.getElementById('list-add-task');
@@ -29,7 +28,15 @@ const fTasks = (() => {
                     createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date, taskArray[i].done);
                 }
             }
-            fTasks.setAttributesTasks();     
+            fTasks.setAttributesTasks();  
+        // OVERDUE 
+        } else if (listTitle.textContent === 'Overdue') {
+            for (let i = 0; i < taskArray.length; i++) {
+                if (taskArray[i].date !== null && taskArray[i].date.valueOf() < new Date().toISOString().slice(0, 10)) {
+                    createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date, taskArray[i].done);
+                }
+            }
+            fTasks.setAttributesTasks();  
         // TODAY
         } else if (listTitle.textContent === 'Today') {
             for (let i = 0; i < taskArray.length; i++) {
@@ -53,6 +60,9 @@ const fTasks = (() => {
                 if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && taskArray[i].done == true) {
                     document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-done');
                 }
+                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && taskArray[i].date !== null && new Date().toISOString().slice(0, 10) > taskArray[i].date.valueOf()) {
+                    document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-overdue');
+                }
             }
         }
     }
@@ -69,6 +79,13 @@ const fTasks = (() => {
         listListDay.classList.add('list-list-task-text');
         listListTask.appendChild(listListDay);
 
+        // DATE 
+        let listListTaskDate = document.createElement('div');
+        listListTaskDate.textContent = date;
+        console.log(date)
+        listListTaskDate.classList.add('list-list-date');
+        listListTask.appendChild(listListTaskDate);
+
         // DOT
         let doneDot = document.createElement('div');
         doneDot.classList.add('main-dot');
@@ -78,7 +95,11 @@ const fTasks = (() => {
         // TASK TITLE
         let li = document.createElement('li');
         li.classList.add('list-list-task-text-title');
-        li.textContent = title;
+        if (project !== null && listTitle.textContent == 'Today' || project !== null && listTitle.textContent == 'Overdue') {
+            li.textContent = title + ' (' + project + ')';
+        } else {
+            li.textContent = title;
+        }
         listListDay.appendChild(li);
 
             // DOTS CONTAINER
@@ -108,6 +129,10 @@ const fTasks = (() => {
         listListTaskDropdownProjectInputInput.classList.add('list-list-task-dropdown-project-input-input');
         listListTaskDropdownProjectInput.appendChild(listListTaskDropdownProjectInputInput);
 
+        let listListTaskDropdownProjectInputInputOptionNull = document.createElement('option');
+        listListTaskDropdownProjectInputInputOptionNull.textContent = 'No Project';
+        listListTaskDropdownProjectInputInputOptionNull.value = 'No Project';
+        listListTaskDropdownProjectInputInput.appendChild(listListTaskDropdownProjectInputInputOptionNull);
         for (let i = 0; i < projectArray.length; i++) {
             let listListTaskDropdownProjectInputInputOption = document.createElement('option');
             listListTaskDropdownProjectInputInputOption.textContent = projectArray[i];

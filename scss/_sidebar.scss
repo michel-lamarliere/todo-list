@@ -1,4 +1,5 @@
 .sidebar {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -18,7 +19,14 @@
             display: flex;
             align-items: center;
             grid-gap: 1rem;
+            padding: 0.4rem;
+            border-radius: 0.5rem;
+            width: 15rem;
             cursor: pointer;
+
+            &:hover {
+                background-color: $colorDarkest;
+            }
 
             & > li {
                 font-size: 20px;
@@ -26,7 +34,7 @@
             }
 
             &:not(:last-of-type) {
-                padding-bottom: 0.5rem;
+                margin-bottom: 0.2rem;
             }
         }
     }
@@ -35,8 +43,8 @@
         display: flex;
         flex-direction: column;
         font-size: 20px;
-        padding: 2rem;
-        padding-top: 0;
+        padding: 0rem 2rem;
+        padding-bottom: 0.5rem;
 
         &-title {
             font-size: 20px;
@@ -106,61 +114,43 @@
 
             &-project {
                 position: relative;
-                width: 100%;
                 display: flex;
                 align-items: center;
-                justify-content: space-between;
+                grid-gap: 1rem;
+                padding: 0.4rem;
+                border-radius: 0.5rem;
+                width: 15rem;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $colorDarkest;
+
+                    & > .sidebar-projects-list-project-delete {
+                        display: flex;
+                    }
+                }
 
                 &:not(:last-child) {
-                    margin-bottom: 0.5rem;
+                    margin-bottom: 0.2rem;
                 }
 
                 &-title {
-                    margin-left: 1rem;
                     cursor: pointer;
                 }
 
-                &-dots {
-                    background: url('./img/dots.svg');
+                &-delete {
+                    position: absolute;
+                    right: 0.7rem;
+                    display: none;
+                    justify-content: center;
+                    align-items: center;
+                    background: url('./img/plus.svg');
+                    transform: rotate(45deg);
                     background-size: contain;
                     background-repeat: no-repeat;
-                    display: flex;
-                    height: 0.5rem;
-                    width: 1.5rem;
+                    padding: 0.5rem;
+                    z-index: 2;
                     cursor: pointer;
-                    justify-self: flex-end;
-                    z-index: 2;
-                }
-
-                &-dropdown {
-                    z-index: 2;
-                    position: absolute;
-                    display: none;
-                    flex-direction: column;
-                    top: 0;
-                    right: 0;
-                    width: 5rem;
-                    overflow: hidden;
-                    background-color: $colorDark;
-                    font-size: 20px;
-                    border: solid 0.1rem $colorLight;
-
-                    &-active {
-                        display: flex;
-                    }
-
-                    &-delete {
-                        display: flex;
-                        border: none;
-                        padding: 0.5rem;
-                        cursor: pointer;
-                       background-color: $colorDarkest;
-
-                        &:active {
-                            background-color: $colorLight;
-                            color: $colorDarkest;
-                        }
-                    }
                 }
             }
         }
@@ -172,4 +162,28 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+}
+
+.michel {
+    position: absolute;
+    bottom: 0.5rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    font-size: 15px;
+
+    & > a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 9rem;
+        height: 2rem;
+        border: solid 0.2rem $colorDarkest;
+        border-radius: 0.8rem;
+        background-color: $colorDarkest;
+
+        &:hover {
+            background-color: $colorDarker;
+        }
+    }
 }

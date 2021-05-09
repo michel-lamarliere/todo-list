@@ -21,7 +21,7 @@ const fEventListeners = (() => {
         }
 
         // PROJECTS DELETE BUTTON
-        else if (target == document.querySelectorAll('.sidebar-projects-list-project-dropdown-delete')[number]) {
+        else if (target == document.querySelectorAll('.sidebar-projects-list-project-delete')[number]) {
             for (let i = 0; i < taskArray.length; i++) {
                 if (taskArray[i].project == document.querySelectorAll('.sidebar-projects-list-project-title')[number].textContent) {
                     taskArray.splice(i, 1);
@@ -36,7 +36,7 @@ const fEventListeners = (() => {
             fTasks.displayTasks();            
         }
 
-        else if (target == document.querySelectorAll('.sidebar-projects-list-project-title')[number]) {
+        else if (target == document.querySelectorAll('.sidebar-projects-list-project')[number] || target == document.querySelectorAll('.sidebar-projects-list-project-title')[number] || target == document.querySelectorAll('.sidebar-projects-dot')[number]) {
             if (listTitle.textContent != projectArray[number]) {
                 displayProject(projectArray[number]);
             }
@@ -79,8 +79,12 @@ const fEventListeners = (() => {
         // TASKS DROPDOWN PROJECT SUBMIT
         else if (target == document.querySelectorAll('.list-list-task-dropdown-project-input-button')[number]) {
             for (let i = 0; i < taskArray.length; i++) {
-                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[number].textContent ) {
-                    taskArray[i].project = document.querySelectorAll('.list-list-task-dropdown-project-input-input')[number].value;
+                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[number].textContent) {
+                    if (document.querySelectorAll('.list-list-task-dropdown-project-input-input')[number].value == 'No Project') {
+                        taskArray[i].project = null;
+                    } else {
+                        taskArray[i].project = document.querySelectorAll('.list-list-task-dropdown-project-input-input')[number].value;
+                    }
                 }
             }        
             fLocalStorage.saveLocalStorage();

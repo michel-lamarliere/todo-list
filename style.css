@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   grid-gap: 1rem;
-  height: 4rem;
+  height: 5vh;
   padding: 0rem 1rem;
   background-color: #333333;
   color: #FFFFFF;
@@ -89,7 +89,6 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 .list-list-task:not(:first-child) {
   margin-top: 1rem;
@@ -98,12 +97,14 @@
   font-size: 20px;
 }
 .list-list-task-dots {
+  position: absolute;
+  right: 0.2rem;
   background: url("./img/dots.svg");
   background-size: contain;
   background-repeat: no-repeat;
   display: flex;
   height: 0.5rem;
-  width: 1.5rem;
+  width: 2rem;
   cursor: pointer;
   z-index: 1;
 }
@@ -118,6 +119,9 @@
 .list-list-task-text-title-done {
   color: #333333;
   text-decoration: line-through;
+}
+.list-list-task-text-title-overdue {
+  color: #C82929;
 }
 .list-list-task-dropdown {
   z-index: 2;
@@ -203,6 +207,11 @@
   height: 0.1rem;
   background-color: #FFFFFF;
 }
+.list-list-date {
+  position: absolute;
+  font-size: 15px;
+  right: 3rem;
+}
 .list-add {
   display: flex;
   width: 100%;
@@ -263,6 +272,7 @@
 }
 
 .sidebar {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -281,21 +291,27 @@
   display: flex;
   align-items: center;
   grid-gap: 1rem;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+  width: 15rem;
   cursor: pointer;
+}
+.sidebar-list-title:hover {
+  background-color: #1F1F1F;
 }
 .sidebar-list-title > li {
   font-size: 20px;
   cursor: pointer;
 }
 .sidebar-list-title:not(:last-of-type) {
-  padding-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
 }
 .sidebar-projects {
   display: flex;
   flex-direction: column;
   font-size: 20px;
-  padding: 2rem;
-  padding-top: 0;
+  padding: 0rem 2rem;
+  padding-bottom: 0.5rem;
 }
 .sidebar-projects-title {
   font-size: 20px;
@@ -350,55 +366,39 @@
 }
 .sidebar-projects-list-project {
   position: relative;
-  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-.sidebar-projects-list-project:not(:last-child) {
-  margin-bottom: 0.5rem;
-}
-.sidebar-projects-list-project-title {
-  margin-left: 1rem;
+  grid-gap: 1rem;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+  width: 15rem;
   cursor: pointer;
 }
-.sidebar-projects-list-project-dots {
-  background: url("./img/dots.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  display: flex;
-  height: 0.5rem;
-  width: 1.5rem;
-  cursor: pointer;
-  justify-self: flex-end;
-  z-index: 2;
-}
-.sidebar-projects-list-project-dropdown {
-  z-index: 2;
-  position: absolute;
-  display: none;
-  flex-direction: column;
-  top: 0;
-  right: 0;
-  width: 5rem;
-  overflow: hidden;
-  background-color: #4D4D4D;
-  font-size: 20px;
-  border: solid 0.1rem #FFFFFF;
-}
-.sidebar-projects-list-project-dropdown-active {
-  display: flex;
-}
-.sidebar-projects-list-project-dropdown-delete {
-  display: flex;
-  border: none;
-  padding: 0.5rem;
-  cursor: pointer;
+.sidebar-projects-list-project:hover {
   background-color: #1F1F1F;
 }
-.sidebar-projects-list-project-dropdown-delete:active {
-  background-color: #FFFFFF;
-  color: #1F1F1F;
+.sidebar-projects-list-project:hover > .sidebar-projects-list-project-delete {
+  display: flex;
+}
+.sidebar-projects-list-project:not(:last-child) {
+  margin-bottom: 0.2rem;
+}
+.sidebar-projects-list-project-title {
+  cursor: pointer;
+}
+.sidebar-projects-list-project-delete {
+  position: absolute;
+  right: 0.7rem;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: url("./img/plus.svg");
+  transform: rotate(45deg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding: 0.5rem;
+  z-index: 2;
+  cursor: pointer;
 }
 
 .dot-text {
@@ -407,15 +407,38 @@
   cursor: pointer;
 }
 
+.michel {
+  position: absolute;
+  bottom: 0.5rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 15px;
+}
+.michel > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 9rem;
+  height: 2rem;
+  border: solid 0.2rem #1F1F1F;
+  border-radius: 0.8rem;
+  background-color: #1F1F1F;
+}
+.michel > a:hover {
+  background-color: #333333;
+}
+
 body {
   margin: 0;
+  height: 100%;
   font-family: Arial, sans-serif;
   font-size: 30px;
 }
 
 main {
   display: flex;
-  height: 100vh;
+  height: 95vh;
   width: 100%;
 }
 
@@ -430,6 +453,11 @@ ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .overlay {

@@ -1,6 +1,6 @@
 import { clearInputs } from '../index.js';
 import { fTasks } from '../js/_tasks.js'
-import { displayInbox, displayToday, displayProject } from '../js/_displays.js';
+import { displayInbox, displayToday, displayProject, displayOverdue } from '../js/_displays.js';
 import { fLocalStorage, taskArray, projectArray } from './_local-storage.js';
 
 const listTitle = document.getElementById('list-title');
@@ -18,6 +18,10 @@ const fSidebar = (() => {
 
     const sidebarProjectsList = document.getElementById('sidebar-projects-list');
     const sidebarProjectsTitle = document.getElementById('sidebar-projects-title');
+
+    const inbox = document.getElementById('inbox');
+    const today = document.getElementById('today');
+    const overdue = document.getElementById('overdue');
     
     // NAVBAR HAMBURGER
     navbarHamburger.addEventListener('click', () => {
@@ -34,6 +38,13 @@ const fSidebar = (() => {
     today.addEventListener('click', () => {
         if (listTitle.textContent !== 'Today') {
             displayToday();
+        }
+    });
+
+        // OVERDUE
+    overdue.addEventListener('click', () => {
+        if (listTitle.textContent !== 'Overdue') {
+            displayOverdue();
         }
     });
 
@@ -73,33 +84,20 @@ const fSidebar = (() => {
             let sidebarProjectsListProject = document.createElement('div');
             sidebarProjectsListProject.classList.add('sidebar-projects-list-project');
             sidebarProjectsList.appendChild(sidebarProjectsListProject);
-            
-            let dotText = document.createElement('div');
-            dotText.classList.add('dot-text');
-            sidebarProjectsListProject.appendChild(dotText);
 
             let mainDot = document.createElement('div');
             mainDot.classList.add('main-dot');
             mainDot.classList.add('sidebar-projects-dot');
-            dotText.appendChild(mainDot);
+            sidebarProjectsListProject.appendChild(mainDot);
         
             let sidebarProjectsListTitle = document.createElement('div');
             sidebarProjectsListTitle.classList.add('sidebar-projects-list-project-title');
             sidebarProjectsListTitle.textContent = projectArray[i];
-            dotText.appendChild(sidebarProjectsListTitle);
+            sidebarProjectsListProject.appendChild(sidebarProjectsListTitle);
 
-            let sidebarProjectsListDots = document.createElement('div');
-            sidebarProjectsListDots.classList.add('sidebar-projects-list-project-dots');
-            sidebarProjectsListProject.appendChild(sidebarProjectsListDots);
-
-            let sidebarProjectsListDropdown = document.createElement('ul');
-            sidebarProjectsListDropdown.classList.add('sidebar-projects-list-project-dropdown');
-            sidebarProjectsListProject.appendChild(sidebarProjectsListDropdown);
-
-            let sidebarProjectsListDropdownDelete = document.createElement('li');
-            sidebarProjectsListDropdownDelete.classList.add('sidebar-projects-list-project-dropdown-delete');
-            sidebarProjectsListDropdownDelete.textContent = 'Delete';
-            sidebarProjectsListDropdown.appendChild(sidebarProjectsListDropdownDelete);
+            let sidebarProjectsListDelete = document.createElement('div');
+            sidebarProjectsListDelete.classList.add('sidebar-projects-list-project-delete');
+            sidebarProjectsListProject.appendChild(sidebarProjectsListDelete);
         
             sidebarProjectsAdd.classList.remove('sidebar-projects-add-inactive');
             sidebarProjectsAddProject.classList.remove('sidebar-projects-add-project-active');
@@ -109,7 +107,7 @@ const fSidebar = (() => {
     }
 
     const updateProjectNumber = () => {
-        sidebarProjectsTitle.textContent = `Projects: (${projectArray.length})`;
+        sidebarProjectsTitle.textContent = `Projects: ${projectArray.length}`;
     }
 
         // CLEAR ALL PROJECT
@@ -135,21 +133,15 @@ const fSidebar = (() => {
         // SETS PROJECT DATASET NUMBERS
     const setAttributeProjects = () => {
         let allSidebarProjectsListProject = document.querySelectorAll('.sidebar-projects-list-project');
-        let allDotText = document.querySelectorAll('.dot-text');
         let allMainDot = document.querySelectorAll('.sidebar-projects-dot');
         let allSidebarProjectsListProjectTitle = document.querySelectorAll('.sidebar-projects-list-project-title');
-        let allSidebarProjectsListProjectDots = document.querySelectorAll('.sidebar-projects-list-project-dots');
-        let allSidebarProjectsListProjectDropdown = document.querySelectorAll('.sidebar-projects-list-project-dropdown');
-        let allSidebarProjectsListProjectDropdownDelete = document.querySelectorAll('.sidebar-projects-list-project-dropdown-delete');
+        let allSidebarProjectsListProjectDelete = document.querySelectorAll('.sidebar-projects-list-project-delete');
 
         for (let i = 0; i < allSidebarProjectsListProject.length; i++) {
         allSidebarProjectsListProject[i].dataset.number = i;
-        allDotText[i].dataset.number = i;
         allMainDot[i].dataset.number = i;
         allSidebarProjectsListProjectTitle[i].dataset.number = i;
-        allSidebarProjectsListProjectDots[i].dataset.number = i;
-        allSidebarProjectsListProjectDropdown[i].dataset.number = i;
-        allSidebarProjectsListProjectDropdownDelete[i].dataset.number = i;
+        allSidebarProjectsListProjectDelete[i].dataset.number = i;
         } 
     }
     
