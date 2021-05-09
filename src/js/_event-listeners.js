@@ -32,7 +32,6 @@ const fEventListeners = (() => {
             } 
             projectArray.splice(number, 1);
             fLocalStorage.saveLocalStorage();
-            fSidebar.clearProjects();
             fSidebar.displayProjects();
             fTasks.displayTasks();            
         }
@@ -48,6 +47,22 @@ const fEventListeners = (() => {
     listList.addEventListener('click', event => {
         let target = event.target;
         let number = event.target.dataset.number;
+        
+        // TASK DONE DOT 
+        if (target == document.querySelectorAll('.done-dot')[number]) {
+            for (let i = 0; i < taskArray.length; i++) {
+                if (document.querySelectorAll('.list-list-task-text-title')[number].textContent == taskArray[i].title) {
+                    if (taskArray[i].done == true) {
+                        taskArray[i].done = false;
+                    } else {
+                        taskArray[i].done = true;
+                    }
+                    fLocalStorage.saveLocalStorage();
+                    fTasks.displayTasks();
+                    console.log(taskArray);
+                }
+            }
+        }
         
         // TASK DOTS
         if (target == document.querySelectorAll('.list-list-task-dots')[number]) {

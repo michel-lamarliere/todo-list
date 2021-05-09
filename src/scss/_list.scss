@@ -55,9 +55,14 @@
 
                 &-title {
                     margin-left: 1rem;
+
+                    &-done {
+                        color: $colorDarker;
+                        text-decoration: line-through;
+                    }
                 }
             }
-
+            
             &-dropdown {
                 z-index: 2;
                 position: absolute;
@@ -69,114 +74,93 @@
                 overflow: hidden;
                 background-color: $colorDark;
                 font-size: 20px;
+                border: solid 0.1rem $colorLight;
             
                 &-active {
                     display: flex;
                 }
-
-                &-project {
+            
+                &-bar {
                     display: flex;
-                    border: solid 0.2rem $colorDark;
-                    border-bottom: none;
+                    border: none;
                     padding: 0.5rem;
                     cursor: pointer;
-            
+                
                     &:hover {
                         background-color: $colorDarkest;
                     }
+                
+                    &-button {
+                        background-color: $colorDarker;
+                        border: none;
+                        width: 20%;
+                        color: $colorLight;
+                        cursor: pointer;
+                
+                        &:active {
+                            background-color: $colorLight;
+                            color: $colorDarkest;
+                        }
+                    }
+                }
+            
+                &-project {
 
                     &-inactive {
                         display: none;
                     }
-
+            
                     &-input {
                         display: none;
 
                         &-active {
                             display: flex;
                         }
-
+            
                         &-input {
                             background-color: $colorDarkest;
-                            width: 100%;
+                            width: 11rem;
                             display: flex;
                             justify-content: space-between;
-                            border: solid 0.2rem $colorDark;
+                            border: none;
                             border-bottom: none;
                             padding: 0.5rem;
                             cursor: pointer;
                             color: $colorLight;
                             font-size: 20px;
                         }
-
-                        &-button {
-                            background-color: $colorDarker;
-                            border: none;
-                            width: 20%;
-                            color: $colorLight;
-                            cursor: pointer;
-
-                            &:active {
-                                background-color: $colorLight;
-                                color: $colorDarkest;
-                            }
-                        }
                     }
                 }
             
                 &-date {
-                    display: flex;
-                    border: solid 0.2rem $colorDark;
-                    border-bottom: none;
-                    padding: 0.5rem;
-                    cursor: pointer;
-            
-                    &:hover {
-                        background-color: $colorDarkest;
-                    }
                 
                     &-inactive {
                         display: none;
                     }
+            
                     &-input {
                         display: none;
-                        padding: 0.5rem;
-                        height: 2rem;
-                        cursor: pointer;
+                        width: 100%;
+                        height: 2.55rem;
             
                         &-active {
                             display: flex;
                         }
             
                         &-date {
-                            padding: 0.1rem;
-                            width: 80%;
+                            background-color: $colorDarkest;
+                            color: $colorLight;
+                            padding: 0.5rem 0rem;
+                            width: 11rem;
+                            text-indent: 0.5rem;
                         }
             
-                        &-button {
-                            background-color: $colorDarker;
-                            border: none;
-                            width: 20%;
-                            color: $colorLight;
-                            cursor: pointer;
-
-                            &:active {
-                                background-color: $colorLight;
-                                color: $colorDarkest;
-                            }
-                        }
                     }
                 }
                 &-delete {
-                    border: solid 0.2rem $colorDark;
-                    padding: 0.5rem;
-                    cursor: pointer;
-            
-                    &:hover {
-                        background-color: $colorDarkest;
-                    }
+                    display: flex;
                 }
-            }   
+            }               
         }
         
         &-lign {

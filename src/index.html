@@ -15,9 +15,6 @@
                 <span class="navbar-hamburger-lign"></span>
             </div>
             <div class="navbar-home">TodoList</div>
-            <div class="navbar-searchbar">
-                <input type="search" class="navbar-searchbar-input" placeholder="Search" data-com.bitwarden.browser.user-edited="yes">
-            </div>
         </navbar>
     </header>
 
@@ -31,19 +28,21 @@
                 </div>
                 <div class="sidebar-list-title">
                     <div class="main-dot"></div>
+                    <li id="overdue">Overdue</li>
+                </div>
+                <div class="sidebar-list-title">
+                    <div class="main-dot"></div>
                     <li id="today">Today</li>
                 </div>
                 <div class="sidebar-list-title">
                     <div class="main-dot"></div>
-                    <li id="today">Upcoming</li>
+                    <li id="upcoming">Upcoming</li>
                 </div>
             </ul>
             <div class="sidebar-projects">
                 <h1 class="sidebar-projects-title" id="sidebar-projects-title">Projects (0)</h1>            
                 <h1 class="sidebar-projects-add" id="sidebar-projects-add">
                     <div class="main-plus">
-                        <span></span>
-                        <span></span>
                     </div>
                     <div class="sidebar-projects-add-title" id="sidebar-projects-add-title">Add Project</div>
                 </h1>
@@ -60,8 +59,17 @@
 
             <div class="list" id="list">
                 <div class="list-title" id="list-title"></div>
-                <div class="list-add" id="list-add"><div class="list-add-add"><div class="main-plus"><span></span><span></span></div><div>Add a task</div></div></div>
-                <div class="list-add-task" id="list-add-task"><input type="text" class="list-add-task-input" id="list-add-task-input"><button id="list-add-task-input-cancel">x</button><button id="list-add-task-input-add">+</button></div>
+                <div class="list-add" id="list-add">
+                    <div class="list-add-add">
+                        <div class="main-plus"></div>
+                        <div>Add a task</div>
+                    </div>
+                </div>
+                <div class="list-add-task" id="list-add-task">
+                    <input type="text" class="list-add-task-input" id="list-add-task-input">
+                    <button id="list-add-task-input-cancel">x</button>
+                    <button id="list-add-task-input-add">+</button>
+                </div>
                 <ul class="list-list" id="list-list">
                 </ul>
             </div>

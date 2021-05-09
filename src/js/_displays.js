@@ -9,11 +9,23 @@ const displayInbox = () => {
     fTasks.displayTasks();
 };
 
+const displayOverdue = () => {
+    listTitle.textContent = 'Overdue';
+    // fLocalStorage.getLocalStorage();
+    // fTasks.displayTasks();
+}
+
 const displayToday = () => {    
     listTitle.textContent = 'Today';
     fLocalStorage.getLocalStorage();
     fTasks.displayTasks();
 };
+
+const displayUpcoming = () => {
+    listTitle.textContent = 'Upcoming';
+    // fLocalStorage.getLocalStorage();
+    // fTasks.displayTasks();
+}
 
 const displayProject = (project) => {
     listTitle.textContent = `${project}`;
@@ -21,9 +33,10 @@ const displayProject = (project) => {
     fTasks.displayTasks();
 }
 
-
 export {    
     displayInbox as displayInbox,
+    displayOverdue as displayOverdue,
     displayToday as displayToday,
+    displayUpcoming as displayUpcoming,
     displayProject as displayProject
 };

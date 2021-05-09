@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 2rem 2rem;
     width: 20rem;
     height: 100%;
     background-color: $colorDark;
@@ -13,11 +12,13 @@
     }
 
     &-list {
+        padding: 2rem;
 
         &-title {
             display: flex;
             align-items: center;
             grid-gap: 1rem;
+            cursor: pointer;
 
             & > li {
                 font-size: 20px;
@@ -34,7 +35,8 @@
         display: flex;
         flex-direction: column;
         font-size: 20px;
-        margin-top: 2rem;
+        padding: 2rem;
+        padding-top: 0;
 
         &-title {
             font-size: 20px;
@@ -65,8 +67,9 @@
 
             &-project {
                 @extend .list-add-task;
-                margin-top: 0.5rem;
+                height: auto;
                 z-index: 2;
+                margin-top: 0.55rem;
 
                 &-active {
                     display: flex
@@ -96,9 +99,10 @@
         &-list {
             display: flex;
             flex-direction: column;
-            margin-top: 1rem;
+            padding: 2rem 2rem;
+            padding-top: 0;
             font-size: 20px;
-            width: 100%;
+            width: 80%;
 
             &-project {
                 position: relative;
@@ -135,22 +139,26 @@
                     flex-direction: column;
                     top: 0;
                     right: 0;
-                    width: 4rem;
+                    width: 5rem;
                     overflow: hidden;
                     background-color: $colorDark;
                     font-size: 20px;
+                    border: solid 0.1rem $colorLight;
 
                     &-active {
                         display: flex;
                     }
 
                     &-delete {
-                        padding: 0.2rem;
+                        display: flex;
+                        border: none;
+                        padding: 0.5rem;
                         cursor: pointer;
-                        background-color: $colorDarkest;
+                       background-color: $colorDarkest;
 
-                        &:hover {
-                            background-color: $colorDarker;
+                        &:active {
+                            background-color: $colorLight;
+                            color: $colorDarkest;
                         }
                     }
                 }
@@ -163,4 +171,5 @@
 .dot-text {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }

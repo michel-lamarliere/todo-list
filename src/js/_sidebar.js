@@ -109,7 +109,7 @@ const fSidebar = (() => {
     }
 
     const updateProjectNumber = () => {
-        sidebarProjectsTitle.textContent = `Projects : (${projectArray.length})`;
+        sidebarProjectsTitle.textContent = `Projects: (${projectArray.length})`;
     }
 
         // CLEAR ALL PROJECT

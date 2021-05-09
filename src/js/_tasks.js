@@ -16,8 +16,8 @@ const fTasks = (() => {
     const listAddTaskInputCancel = document.getElementById('list-add-task-input-cancel');
 
     // ADD CONSTRUCTOR
-    const addTask = (title, project, date) => {
-        return { title, project, date }
+    const addTask = (title, project, date, done) => {
+        return { title, project, date, done }
     }
 
     const displayTasks = () => {
@@ -26,7 +26,7 @@ const fTasks = (() => {
         if (listTitle.textContent === 'Inbox') {
             for (let i = 0; i < taskArray.length; i++) {
                 if (taskArray[i].project === null) {
-                    createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date);
+                    createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date, taskArray[i].done);
                 }
             }
             fTasks.setAttributesTasks();     
@@ -34,7 +34,7 @@ const fTasks = (() => {
         } else if (listTitle.textContent === 'Today') {
             for (let i = 0; i < taskArray.length; i++) {
                 if (taskArray[i].date == new Date().toISOString().slice(0, 10)) {
-                    createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date);
+                    createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date, taskArray[i].done);
                 }
             }
             fTasks.setAttributesTasks();
@@ -42,28 +42,38 @@ const fTasks = (() => {
         } else {
             for (let i = 0; i < taskArray.length; i++) {
                 if (taskArray[i].project == listTitle.textContent) {
-                    createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date);
+                    createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date, taskArray[i].done);
                 }
             }
             fTasks.setAttributesTasks();
         }
+
+        for (let i = 0; i < taskArray.length; i++) {
+            for (let y = 0; y < document.querySelectorAll('.list-list-task-text-title').length; y++) {
+                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && taskArray[i].done == true) {
+                    document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-done');
+                }
+            }
+        }
     }
 
-    const createTasks = (title, project, date) => {
+    const createTasks = (title, project, date, done) => {
         // TASK CONTAINER
         let listListTask = document.createElement('div');
         listListTask.classList.add('list-list-task');
         listList.appendChild(listListTask);
         
         // TASK TITLE CONTAINER
+       
         let listListDay = document.createElement('div');
         listListDay.classList.add('list-list-task-text');
         listListTask.appendChild(listListDay);
 
         // DOT
-        let mainDot = document.createElement('div');
-        mainDot.classList.add('main-dot');
-        listListDay.appendChild(mainDot);
+        let doneDot = document.createElement('div');
+        doneDot.classList.add('main-dot');
+        doneDot.classList.add('done-dot');
+        listListDay.appendChild(doneDot);
 
         // TASK TITLE
         let li = document.createElement('li');
@@ -84,6 +94,7 @@ const fTasks = (() => {
                 // DROPDOWN PROJECT
         let listListTaskDropdownProject = document.createElement('li');
         listListTaskDropdownProject.classList.add('list-list-task-dropdown-project');
+        listListTaskDropdownProject.classList.add('list-list-task-dropdown-bar');
         listListTaskDropdownProject.textContent = 'Project';
         listListTaskDropdown.appendChild(listListTaskDropdownProject);
         
@@ -107,12 +118,14 @@ const fTasks = (() => {
             // DROPDOWN PROJECT BUTTON
         let listListTaskDropdownProjectInputButton = document.createElement('button');
         listListTaskDropdownProjectInputButton.classList.add('list-list-task-dropdown-project-input-button');
+        listListTaskDropdownProjectInputButton.classList.add('list-list-task-dropdown-bar-button');
         listListTaskDropdownProjectInputButton.textContent = 'OK';
         listListTaskDropdownProjectInput.appendChild(listListTaskDropdownProjectInputButton);
 
                 // DROPDOWN LI DATE
         let listListTaskDropdownDate = document.createElement('li');
         listListTaskDropdownDate.classList.add('list-list-task-dropdown-date');
+        listListTaskDropdownDate.classList.add('list-list-task-dropdown-bar');
         listListTaskDropdownDate.textContent = 'Date';
         listListTaskDropdown.appendChild(listListTaskDropdownDate);
 
@@ -130,6 +143,7 @@ const fTasks = (() => {
                     // INPUT BUTTON
         let listListTaskDropdownDateInputButton = document.createElement('button');
         listListTaskDropdownDateInputButton.classList.add('list-list-task-dropdown-date-input-button');
+        listListTaskDropdownDateInputButton.classList.add('list-list-task-dropdown-bar-button');
         listListTaskDropdownDateInputButton.textContent = 'OK';
         listListTaskDropdownDateInput.appendChild(listListTaskDropdownDateInputButton);
         listListTaskDropdown.appendChild(listListTaskDropdownDateInput);
@@ -137,6 +151,7 @@ const fTasks = (() => {
                 // DROPDOWN LI DELETE
         let listListTaskDropdownDelete = document.createElement('li');
         listListTaskDropdownDelete.classList.add('list-list-task-dropdown-delete');
+        listListTaskDropdownDelete.classList.add('list-list-task-dropdown-bar');
         listListTaskDropdownDelete.textContent = 'Delete';
         listListTaskDropdown.appendChild(listListTaskDropdownDelete);
 
@@ -151,6 +166,8 @@ const fTasks = (() => {
         let allListListTask = document.querySelectorAll('.list-list-task');
         let allListListLign = document.querySelectorAll('.list-list-lign');
         let allDots = document.querySelectorAll('.list-list-task-dots');
+        let allDoneDots = document.querySelectorAll('.done-dot');
+        let allTaskTextTitle = document.querySelectorAll('.list-list-task-text-title')
         let allTaskDropdown = document.querySelectorAll('.list-list-task-dropdown');
         let allDeleteButton = document.querySelectorAll('.list-list-task-dropdown-delete');
         let allDropdownProject = document.querySelectorAll('.list-list-task-dropdown-project');
@@ -166,6 +183,8 @@ const fTasks = (() => {
                 allListListTask[i].dataset.number = i;
                 allListListLign[i].dataset.number = i;
                 allDots[i].dataset.number = i;
+                allDoneDots[i].dataset.number = i;
+                allTaskTextTitle[i].dataset.number = i;
                 allTaskDropdown[i].dataset.number = i;
                 allDropdownProject[i].dataset.number = i;
                 allDeleteButton[i].dataset.number = i;
@@ -229,15 +248,15 @@ const fTasks = (() => {
 
             if (listTitle.textContent == 'Today') {
                 let date = new Date().toISOString().slice(0, 10);
-                newTask = addTask(title, null, date);
+                newTask = addTask(title, null, date, false);
             } 
 
             else if (listTitle.textContent !== 'Today' && listTitle.textContent !== 'Inbox') {
-                newTask = addTask(title, listTitle.textContent, null)
+                newTask = addTask(title, listTitle.textContent, null, false)
             }
 
             else {
-                newTask = addTask(title, null, null);
+                newTask = addTask(title, null, null, false);
             }
 
             taskArray.push(newTask);

@@ -22,14 +22,11 @@ const clearInputs = () => {
 
 const listTitle = document.getElementById('list-title');
 
-const sidebarProjectsList = document.getElementById('sidebar-projects-list');
-const sidebarProjectsTitle = document.getElementById('sidebar-projects-title');
-
-
 if (!listTitle.textContent) {
     displayInbox();
     fSidebar.displayProjects();
 }
+console.log(taskArray);
 
 
 export {
