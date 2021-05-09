@@ -44,15 +44,9 @@
         flex-direction: column;
         font-size: 20px;
         padding: 0rem 2rem;
-        padding-bottom: 0.5rem;
 
         &-title {
             font-size: 20px;
-            margin: 0;
-
-            &:not(:last-of-type) {
-                margin-bottom: 1rem;
-            }
         }
 
         &-add {
@@ -74,7 +68,8 @@
             }
 
             &-project {
-                @extend .list-add-task;
+                display: none;
+                width: 100%;
                 height: auto;
                 z-index: 2;
                 margin-top: 0.55rem;
@@ -84,7 +79,13 @@
                 }
 
                 &-input {
-                    @extend .list-add-task-input;
+                    padding: 0.5rem;
+                    background-color: $colorDarkest;
+                    border: solid 0.1rem $colorDarker;
+                    border-right: none;
+                    color: $colorLight;
+                    font-size: 20px;
+                    width: 90%;
                 }
 
                 & > button {
