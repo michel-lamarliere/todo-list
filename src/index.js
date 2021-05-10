@@ -3,7 +3,7 @@ import { fSidebar } from './js/_sidebar.js';
 import { displayInbox, displayToday, displayProject } from './js/_displays.js';
 import { fTasks } from './js/_tasks.js';
 import { fEventListeners } from './js/_event-listeners.js'
-// import style from './style.css'
+import style from './style.css'
 
 // EVENT LISTENERS Id
 const overlay = document.getElementById('overlay'); 
