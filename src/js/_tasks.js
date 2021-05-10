@@ -15,8 +15,8 @@ const fTasks = (() => {
     const listAddTaskInputCancel = document.getElementById('list-add-task-input-cancel');
 
     // ADD CONSTRUCTOR
-    const addTask = (title, project, date, done) => {
-        return { title, project, date, done }
+    const addTask = (title, project, date, done, index) => {
+        return { title, project, date, done, index}
     }
 
     const displayTasks = () => {
@@ -25,34 +25,31 @@ const fTasks = (() => {
         if (listTitle.textContent === 'Inbox') {
             for (let i = 0; i < taskArray.length; i++) {
                 if (taskArray[i].project === null) {
-                    createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date, taskArray[i].done);
+                    createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date, taskArray[i].done, taskArray[i].index = i);
                 }
             }
-            fTasks.setAttributesTasks();  
+            // fTasks.setAttributesTasks();  
         // OVERDUE 
         } else if (listTitle.textContent === 'Overdue') {
             for (let i = 0; i < taskArray.length; i++) {
                 if (taskArray[i].date !== null && taskArray[i].date.valueOf() < new Date().toISOString().slice(0, 10)) {
-                    createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date, taskArray[i].done);
+                    createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date, taskArray[i].done, taskArray[i].index = i);
                 }
             }
-            fTasks.setAttributesTasks();  
         // TODAY
         } else if (listTitle.textContent === 'Today') {
             for (let i = 0; i < taskArray.length; i++) {
                 if (taskArray[i].date == new Date().toISOString().slice(0, 10)) {
-                    createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date, taskArray[i].done);
+                    createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date, taskArray[i].done, taskArray[i].index = i);
                 }
             }
-            fTasks.setAttributesTasks();
         // PROJECTS
         } else {
             for (let i = 0; i < taskArray.length; i++) {
                 if (taskArray[i].project == listTitle.textContent) {
-                    createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date, taskArray[i].done);
+                    createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date, taskArray[i].done, taskArray[i].index = i);
                 }
             }
-            fTasks.setAttributesTasks();
         }
 
         for (let i = 0; i < taskArray.length; i++) {
@@ -60,39 +57,44 @@ const fTasks = (() => {
                 if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && taskArray[i].done == true) {
                     document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-done');
                 }
-                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && taskArray[i].date !== null && new Date().toISOString().slice(0, 10) > taskArray[i].date.valueOf()) {
+                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index && taskArray[i].date !== null && new Date().toISOString().slice(0, 10) > taskArray[i].date.valueOf()) {
                     document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-overdue');
                 }
             }
         }
     }
 
-    const createTasks = (title, project, date, done) => {
+    const createTasks = (title, project, date, done, index) => {
         // TASK CONTAINER
         let listListTask = document.createElement('div');
         listListTask.classList.add('list-list-task');
+        listListTask.dataset.number = index;
         listList.appendChild(listListTask);
         
         // TASK TITLE CONTAINER
        
         let listListDay = document.createElement('div');
         listListDay.classList.add('list-list-task-text');
+        listListDay.dataset.number = index;
         listListTask.appendChild(listListDay);
 
         // DATE 
         let listListTaskDate = document.createElement('div');
         listListTaskDate.textContent = date;
+        listListTaskDate.dataset.number = index;
         listListTaskDate.classList.add('list-list-date');
         listListTask.appendChild(listListTaskDate);
 
         // DOT
         let doneDot = document.createElement('div');
+        doneDot.dataset.number = index;
         doneDot.classList.add('main-dot');
         doneDot.classList.add('done-dot');
         listListDay.appendChild(doneDot);
 
         // TASK TITLE
         let li = document.createElement('li');
+        li.dataset.number = index;
         li.classList.add('list-list-task-text-title');
         if (project !== null && listTitle.textContent == 'Today' || project !== null && listTitle.textContent == 'Overdue') {
             li.textContent = title + ' (' + project + ')';
@@ -103,16 +105,19 @@ const fTasks = (() => {
 
             // DOTS CONTAINER
         let listListTaskDots = document.createElement('div');
+        listListTaskDots.dataset.number = index;
         listListTaskDots.classList.add('list-list-task-dots');
         listListTask.appendChild(listListTaskDots);
 
             // DROPDOWN 
         let listListTaskDropdown = document.createElement('ul');
+        listListTaskDropdown.dataset.number = index;
         listListTaskDropdown.classList.add('list-list-task-dropdown');
         listListTask.appendChild(listListTaskDropdown);
 
                 // DROPDOWN PROJECT
         let listListTaskDropdownProject = document.createElement('li');
+        listListTaskDropdownProject.dataset.number = index;
         listListTaskDropdownProject.classList.add('list-list-task-dropdown-project');
         listListTaskDropdownProject.classList.add('list-list-task-dropdown-bar');
         listListTaskDropdownProject.textContent = 'Project';
@@ -120,20 +125,24 @@ const fTasks = (() => {
         
             // DROPDOWN PROJECT INPUT CONTAINER
         let listListTaskDropdownProjectInput = document.createElement('li');
+        listListTaskDropdownProjectInput.dataset.number = index;
         listListTaskDropdownProjectInput.classList.add('list-list-task-dropdown-project-input');
         listListTaskDropdown.appendChild(listListTaskDropdownProjectInput);
 
                 // DROPDOWN PROJECT INPUT
         let listListTaskDropdownProjectInputInput = document.createElement('select');
+        listListTaskDropdownProjectInputInput.dataset.number = index;
         listListTaskDropdownProjectInputInput.classList.add('list-list-task-dropdown-project-input-input');
         listListTaskDropdownProjectInput.appendChild(listListTaskDropdownProjectInputInput);
 
         let listListTaskDropdownProjectInputInputOptionNull = document.createElement('option');
+        listListTaskDropdownProjectInputInput.dataset.number = index;
         listListTaskDropdownProjectInputInputOptionNull.textContent = 'No Project';
         listListTaskDropdownProjectInputInputOptionNull.value = 'No Project';
         listListTaskDropdownProjectInputInput.appendChild(listListTaskDropdownProjectInputInputOptionNull);
         for (let i = 0; i < projectArray.length; i++) {
             let listListTaskDropdownProjectInputInputOption = document.createElement('option');
+            listListTaskDropdownProjectInputInputOption.dataset.number = index;
             listListTaskDropdownProjectInputInputOption.textContent = projectArray[i];
             listListTaskDropdownProjectInputInputOption.value = projectArray[i];
             listListTaskDropdownProjectInputInput.appendChild(listListTaskDropdownProjectInputInputOption);
@@ -141,6 +150,7 @@ const fTasks = (() => {
         
             // DROPDOWN PROJECT BUTTON
         let listListTaskDropdownProjectInputButton = document.createElement('button');
+        listListTaskDropdownProjectInputButton.dataset.number = index;
         listListTaskDropdownProjectInputButton.classList.add('list-list-task-dropdown-project-input-button');
         listListTaskDropdownProjectInputButton.classList.add('list-list-task-dropdown-bar-button');
         listListTaskDropdownProjectInputButton.textContent = 'OK';
@@ -148,6 +158,7 @@ const fTasks = (() => {
 
                 // DROPDOWN LI DATE
         let listListTaskDropdownDate = document.createElement('li');
+        listListTaskDropdownDate.dataset.number = index;
         listListTaskDropdownDate.classList.add('list-list-task-dropdown-date');
         listListTaskDropdownDate.classList.add('list-list-task-dropdown-bar');
         listListTaskDropdownDate.textContent = 'Date';
@@ -155,10 +166,12 @@ const fTasks = (() => {
 
                 // DROPDOWN LI DATE INPUT
         let listListTaskDropdownDateInput = document.createElement('li');
+        listListTaskDropdownDateInput.dataset.number = index;
         listListTaskDropdownDateInput.classList.add('list-list-task-dropdown-date-input');
 
                     // INPUT TYPE DATE 
         let listListTaskDropdownDateInputDate = document.createElement('input');
+        listListTaskDropdownDateInputDate.dataset.number = index;
         listListTaskDropdownDateInputDate.type = 'date';
         listListTaskDropdownDateInputDate.value = date;
         listListTaskDropdownDateInputDate.classList.add('list-list-task-dropdown-date-input-date');
@@ -166,6 +179,7 @@ const fTasks = (() => {
 
                     // INPUT BUTTON
         let listListTaskDropdownDateInputButton = document.createElement('button');
+        listListTaskDropdownDateInputButton.dataset.number = index;
         listListTaskDropdownDateInputButton.classList.add('list-list-task-dropdown-date-input-button');
         listListTaskDropdownDateInputButton.classList.add('list-list-task-dropdown-bar-button');
         listListTaskDropdownDateInputButton.textContent = 'OK';
@@ -174,6 +188,7 @@ const fTasks = (() => {
 
                 // DROPDOWN LI DELETE
         let listListTaskDropdownDelete = document.createElement('li');
+        listListTaskDropdownDelete.dataset.number = index;
         listListTaskDropdownDelete.classList.add('list-list-task-dropdown-delete');
         listListTaskDropdownDelete.classList.add('list-list-task-dropdown-bar');
         listListTaskDropdownDelete.textContent = 'Delete';
@@ -181,45 +196,10 @@ const fTasks = (() => {
 
             // TASK LIGN SEPARATOR
         let listListLign = document.createElement('span');
+        listListLign.dataset.number = index;
         listListLign.classList.add('list-list-lign');
         listList.appendChild(listListLign);
     }
-
-        // SETS DATASET NUMBER ON TASKS
-    const setAttributesTasks = () => {
-        let allListListTask = document.querySelectorAll('.list-list-task');
-        let allListListLign = document.querySelectorAll('.list-list-lign');
-        let allDots = document.querySelectorAll('.list-list-task-dots');
-        let allDoneDots = document.querySelectorAll('.done-dot');
-        let allTaskTextTitle = document.querySelectorAll('.list-list-task-text-title')
-        let allTaskDropdown = document.querySelectorAll('.list-list-task-dropdown');
-        let allDeleteButton = document.querySelectorAll('.list-list-task-dropdown-delete');
-        let allDropdownProject = document.querySelectorAll('.list-list-task-dropdown-project');
-        let allDropdownDate = document.querySelectorAll('.list-list-task-dropdown-date');
-        let allDropdownDateInput = document.querySelectorAll('.list-list-task-dropdown-date-input');
-        let allDropdownDateInputButton = document.querySelectorAll('.list-list-task-dropdown-date-input-button');
-        let allDropdownDateInputDate = document.querySelectorAll('.list-list-task-dropdown-date-input-date');
-        let listListTaskDropdownProjectInputInput = document.querySelectorAll('.list-list-task-dropdown-project-input-input')
-        let listListTaskDropdownProjectInputButton = document.querySelectorAll('.list-list-task-dropdown-project-input-button');
-        
-        for (let i = 0; i < allListListTask.length; i++) {
-            if (allListListTask[0]) {
-                allListListTask[i].dataset.number = i;
-                allListListLign[i].dataset.number = i;
-                allDots[i].dataset.number = i;
-                allDoneDots[i].dataset.number = i;
-                allTaskTextTitle[i].dataset.number = i;
-                allTaskDropdown[i].dataset.number = i;
-                allDropdownProject[i].dataset.number = i;
-                allDeleteButton[i].dataset.number = i;
-                allDropdownDate[i].dataset.number = i;
-                allDropdownDateInput[i].dataset.number = i;
-                allDropdownDateInputButton[i].dataset.number = i;
-                listListTaskDropdownProjectInputInput[i].dataset.number = i;
-                listListTaskDropdownProjectInputButton[i].dataset.number = i;
-            }
-        }
-    };
 
     // CLEAR TASK LIST 
     const clearTasks = () => {
@@ -269,18 +249,19 @@ const fTasks = (() => {
         if (listAddTaskInput.value !== "") {
             let title = listAddTaskInput.value;
             let newTask;
+            let i = 0;
 
             if (listTitle.textContent == 'Today') {
                 let date = new Date().toISOString().slice(0, 10);
-                newTask = addTask(title, null, date, false);
+                newTask = addTask(title, null, date, false, i++);
             } 
 
             else if (listTitle.textContent !== 'Today' && listTitle.textContent !== 'Inbox') {
-                newTask = addTask(title, listTitle.textContent, null, false)
+                newTask = addTask(title, listTitle.textContent, null, false, i++)
             }
 
             else {
-                newTask = addTask(title, null, null, false);
+                newTask = addTask(title, null, null, false, i++);
             }
 
             taskArray.push(newTask);
@@ -306,7 +287,7 @@ const fTasks = (() => {
             resetTask();
         }
     });
-    return { displayTasks, clearTasks, setAttributesTasks, resetTask };
+    return { displayTasks, clearTasks, resetTask };
 })();
 
 export {

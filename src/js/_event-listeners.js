@@ -93,13 +93,13 @@ const fEventListeners = (() => {
         // TASK DROPDOWN DATE INPUT
         else if (target == document.querySelectorAll('.list-list-task-dropdown-date')[number]) {
             document.querySelectorAll('.list-list-task-dropdown-date')[number].classList.add('list-list-task-dropdown-date-inactive');
-            document.querySelectorAll('.list-list-task-dropdown-date-input')[event.target.dataset.number].classList.add('list-list-task-dropdown-date-input-active');
+            document.querySelectorAll('.list-list-task-dropdown-date-input')[number].classList.add('list-list-task-dropdown-date-input-active');
         }
 
         // TASK DROPDOWN DATE INPUT SUBMIT
         else if (target == document.querySelectorAll('.list-list-task-dropdown-date-input-button')[number]) {
             for (let i = 0; i < taskArray.length; i++) {
-                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[number].textContent) {
+                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[number].textContent && taskArray[i].index == number) {
                     taskArray[i].date = document.querySelectorAll('.list-list-task-dropdown-date-input-date')[number].value;
                 }
             }
