@@ -232,14 +232,14 @@
   align-items: center;
   grid-gap: 1rem;
 }
-.list-add-task {
+.list-add-task, .sidebar-projects-add-project {
   display: none;
   width: 100%;
   height: 2.5rem;
   margin-top: 2rem;
   z-index: 2;
 }
-.list-add-task-input {
+.list-add-task-input, .sidebar-projects-add-project-input {
   padding: 0.5rem;
   background-color: #1F1F1F;
   border: solid 0.1rem #333333;
@@ -251,7 +251,7 @@
 .list-add-task-active {
   display: flex;
 }
-.list-add-task > button {
+.list-add-task > button, .sidebar-projects-add-project > button {
   width: 10%;
   color: #FFFFFF;
   background-color: #333333;
@@ -259,15 +259,15 @@
   border: none;
   cursor: pointer;
 }
-.list-add-task > button:hover {
+.list-add-task > button:hover, .sidebar-projects-add-project > button:hover {
   background-color: #4D4D4D;
   color: #1F1F1F;
   border: solid 0.1rem #333333;
 }
-.list-add-task > button:first-of-type {
+.list-add-task > button:first-of-type, .sidebar-projects-add-project > button:first-of-type {
   border-right: none;
 }
-.list-add-task > button:last-of-type {
+.list-add-task > button:last-of-type, .sidebar-projects-add-project > button:last-of-type {
   border-left: none;
 }
 
@@ -311,9 +311,14 @@
   flex-direction: column;
   font-size: 20px;
   padding: 0rem 2rem;
+  padding-bottom: 0.5rem;
 }
 .sidebar-projects-title {
   font-size: 20px;
+  margin: 0;
+}
+.sidebar-projects-title:not(:last-of-type) {
+  margin-bottom: 1rem;
 }
 .sidebar-projects-add {
   display: flex;
@@ -331,23 +336,12 @@
   margin-left: 0.5rem;
 }
 .sidebar-projects-add-project {
-  display: none;
-  width: 100%;
   height: auto;
   z-index: 2;
   margin-top: 0.55rem;
 }
 .sidebar-projects-add-project-active {
   display: flex;
-}
-.sidebar-projects-add-project-input {
-  padding: 0.5rem;
-  background-color: #1F1F1F;
-  border: solid 0.1rem #333333;
-  border-right: none;
-  color: #FFFFFF;
-  font-size: 20px;
-  width: 90%;
 }
 .sidebar-projects-add-project > button {
   width: 20%;
