@@ -49,80 +49,77 @@ const fEventListeners = (() => {
         let number = event.target.dataset.number;
         
         // TASK DONE DOT 
-        if (target == document.querySelectorAll('.done-dot')[number]) {
+        if (number) {
             for (let i = 0; i < taskArray.length; i++) {
-                if (document.querySelectorAll('.list-list-task-text-title')[number].textContent == taskArray[i].title) {
-                    if (taskArray[i].done == true) {
-                        taskArray[i].done = false;
-                    } else {
-                        taskArray[i].done = true;
-                    }
-                    fLocalStorage.saveLocalStorage();
-                    fTasks.displayTasks();
-                }
-            }
-        }
-        
-        // TASK DOTS
-        if (target == document.querySelectorAll('.list-list-task-dots')[number]) {
-            document.querySelectorAll('.list-list-task-dropdown')[number].classList.add('list-list-task-dropdown-active');
-            overlay.classList.add('overlay-active');
-        }
-
-        // TASK DROPDOWN
-        else if (target == document.querySelectorAll('.list-list-task-dropdown-project')[number]) {
-            document.querySelectorAll('.list-list-task-dropdown-project')[number].classList.add('list-list-task-dropdown-project-inactive');
-            document.querySelectorAll('.list-list-task-dropdown-project-input')[number].classList.add('list-list-task-dropdown-project-input-active');
-        }
-
-        // TASKS DROPDOWN PROJECT SUBMIT
-        else if (target == document.querySelectorAll('.list-list-task-dropdown-project-input-button')[number]) {
-            for (let i = 0; i < taskArray.length; i++) {
-                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[number].textContent) {
-                    if (document.querySelectorAll('.list-list-task-dropdown-project-input-input')[number].value == 'No Project') {
-                        taskArray[i].project = null;
-                    } else {
-                        taskArray[i].project = document.querySelectorAll('.list-list-task-dropdown-project-input-input')[number].value;
-                    }
-                }
-            }        
-            fLocalStorage.saveLocalStorage();
-            fTasks.displayTasks();
-        }
-
-        // TASK DROPDOWN DATE INPUT
-        else if (target == document.querySelectorAll('.list-list-task-dropdown-date')[number]) {
-            document.querySelectorAll('.list-list-task-dropdown-date')[number].classList.add('list-list-task-dropdown-date-inactive');
-            document.querySelectorAll('.list-list-task-dropdown-date-input')[number].classList.add('list-list-task-dropdown-date-input-active');
-        }
-
-        // TASK DROPDOWN DATE INPUT SUBMIT
-        else if (target == document.querySelectorAll('.list-list-task-dropdown-date-input-button')[number]) {
-            for (let i = 0; i < taskArray.length; i++) {
-                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[number].textContent && taskArray[i].index == number) {
-                    taskArray[i].date = document.querySelectorAll('.list-list-task-dropdown-date-input-date')[number].value;
-                }
-            }
-            fLocalStorage.saveLocalStorage();
-            fTasks.displayTasks();
-        }
-
-        // TASK DROPDOWN DELETE BUTTON
-        else if (target == document.querySelectorAll('.list-list-task-dropdown-delete')[number]) {
-            if (listTitle.textContent == 'Today') {
-                for (let i = 0; i < taskArray.length; i++) {
-                    if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[number].textContent && taskArray[i].date == document.querySelectorAll('.list-list-task-dropdown-date-input-date')[number].value) {
-                        taskArray.splice(i, 1);
+                for (let y = 0; y < document.querySelectorAll('.list-list-task').length; y++) {
+                    if (target == document.querySelectorAll('.done-dot')[y]
+                    && document.querySelectorAll('.list-list-task-text-title')[y].textContent == taskArray[i].title
+                    && number == taskArray[i].index) {
+                        if (taskArray[i].done == true) {
+                            taskArray[i].done = false;
+                        } else {
+                            taskArray[i].done = true;
+                        }
                         fLocalStorage.saveLocalStorage();
                         fTasks.displayTasks();
-                        fTasks.setAttributesTasks();
+                    }
+                    // TASK DOTS
+                    else if (target == document.querySelectorAll('.list-list-task-dots')[y]) {
+                        document.querySelectorAll('.list-list-task-dropdown')[y].classList.add('list-list-task-dropdown-active');
+                        overlay.classList.add('overlay-active');
+                    }
+                    // TASK DROPDOWN PROJECT
+                    else if (target == document.querySelectorAll('.list-list-task-dropdown-project')[y]) {
+                        document.querySelectorAll('.list-list-task-dropdown-project')[y].classList.add('list-list-task-dropdown-project-inactive');
+                        document.querySelectorAll('.list-list-task-dropdown-project-input')[y].classList.add('list-list-task-dropdown-project-input-active');
+                    }
+                    // TASKS DROPDOWN PROJECT SUBMIT
+                    else if (target == document.querySelectorAll('.list-list-task-dropdown-project-input-button')[y]) {
+                        for (let i = 0; i < taskArray.length; i++) {
+                            if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent) {
+                                if (document.querySelectorAll('.list-list-task-dropdown-project-input-input')[y].value == 'No Project') {
+                                    taskArray[i].project = null;
+                                } else {
+                                    taskArray[i].project = document.querySelectorAll('.list-list-task-dropdown-project-input-input')[y].value;
+                                }
+                            }
+                        }        
+                        fLocalStorage.saveLocalStorage();
+                        fTasks.displayTasks();
+                    }
+                    // TASK DROPDOWN DATE INPUT
+                    else if (target == document.querySelectorAll('.list-list-task-dropdown-date')[y]) {
+                        document.querySelectorAll('.list-list-task-dropdown-date')[y].classList.add('list-list-task-dropdown-date-inactive');
+                        document.querySelectorAll('.list-list-task-dropdown-date-input')[y].classList.add('list-list-task-dropdown-date-input-active');
+                    }
+                    // TASK DROPDOWN DATE INPUT SUBMIT
+                    else if (target == document.querySelectorAll('.list-list-task-dropdown-date-input-button')[y]) {
+                        for (let i = 0; i < taskArray.length; i++) {
+                            if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && taskArray[i].index == number) {
+                                taskArray[i].date = document.querySelectorAll('.list-list-task-dropdown-date-input-date')[y].value;
+                            }
+                        }
+                        fLocalStorage.saveLocalStorage();
+                        fTasks.displayTasks();
+                    }
+
+                    // TASK DROPDOWN DELETE BUTTON
+                    else if (target == document.querySelectorAll('.list-list-task-dropdown-delete')[y]) {
+                        if (listTitle.textContent == 'Today') {
+                            for (let i = 0; i < taskArray.length; i++) {
+                                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && taskArray[i].date == document.querySelectorAll('.list-list-task-dropdown-date-input-date')[y].value) {
+                                    taskArray.splice(i, 1);
+                                    fLocalStorage.saveLocalStorage();
+                                    fTasks.displayTasks();
+                                }
+                            }
+                        } else {
+                            taskArray.splice(event.target.dataset.number, 1);
+                            fLocalStorage.saveLocalStorage();
+                            fTasks.displayTasks();
+                        }
                     }
                 }
-            } else {
-                taskArray.splice(event.target.dataset.number, 1);
-                fLocalStorage.saveLocalStorage();
-                fTasks.displayTasks();
-                fTasks.setAttributesTasks();
             }
         }
     });

@@ -54,11 +54,11 @@ const fTasks = (() => {
 
         for (let i = 0; i < taskArray.length; i++) {
             for (let y = 0; y < document.querySelectorAll('.list-list-task-text-title').length; y++) {
-                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && taskArray[i].done == true) {
-                    document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-done');
-                }
                 if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index && taskArray[i].date !== null && new Date().toISOString().slice(0, 10) > taskArray[i].date.valueOf()) {
                     document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-overdue');
+                }
+                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index && taskArray[i].done == true) {
+                    document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-done');
                 }
             }
         }
@@ -269,7 +269,6 @@ const fTasks = (() => {
             clearTasks();
             clearInputs();
             displayTasks();
-            setAttributesTasks();
         } else {
             listAddTaskInput.placeholder = 'Please enter something';
         }
