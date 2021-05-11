@@ -1,82 +1,16 @@
 import { clearInputs } from '../index.js';
 import { fTasks } from '../js/_tasks.js'
-import { displayInbox, displayToday, displayProject, displayOverdue } from '../js/_displays.js';
+import { displayInbox, displayToday, displayOverdue, displayUpcoming, displayProject} from '../js/_displays.js';
 import { fLocalStorage, taskArray, projectArray } from './_local-storage.js';
-
-const listTitle = document.getElementById('list-title');
 
 const fSidebar = (() => {
 
-    const navbarHamburger = document.getElementById('navbar-hamburger');
-    
-    const sidebar = document.getElementById('sidebar');
     const sidebarProjectsAdd = document.getElementById('sidebar-projects-add');
-    const sidebarProjectsAddProjectAdd = document.getElementById('list-projects-add-project-add');
-    const sidebarProjectsAddProjectCancel = document.getElementById('list-projects-add-project-cancel');
     const sidebarProjectsAddProject = document.getElementById('sidebar-projects-add-project');
-    const sidebarProjectsAddProjectInput = document.getElementById('sidebar-projects-add-project-input');
 
     const sidebarProjectsList = document.getElementById('sidebar-projects-list');
     const sidebarProjectsTitle = document.getElementById('sidebar-projects-title');
-
-    const inbox = document.getElementById('inbox');
-    const today = document.getElementById('today');
-    const overdue = document.getElementById('overdue');
     
-    // NAVBAR HAMBURGER
-    navbarHamburger.addEventListener('click', () => {
-        sidebar.classList.toggle('sidebar-closed');
-    });
-
-        // INBOX 
-    inbox.addEventListener('click', () => {
-        if (listTitle.textContent !== 'Inbox') {
-            displayInbox();
-        }
-    });
-        // TODAY
-    today.addEventListener('click', () => {
-        if (listTitle.textContent !== 'Today') {
-            displayToday();
-        }
-    });
-
-        // OVERDUE
-    overdue.addEventListener('click', () => {
-        if (listTitle.textContent !== 'Overdue') {
-            displayOverdue();
-        }
-    });
-
-        // SIDEBAR PROJECT ADD
-    sidebarProjectsAdd.addEventListener('click', () => {
-        overlay.classList.add('overlay-active');
-        sidebarProjectsAdd.classList.add('sidebar-projects-add-inactive');
-        sidebarProjectsAddProject.classList.add('sidebar-projects-add-project-active');
-        sidebarProjectsAddProjectInput.focus();
-    });
-
-        // SIDEBAR PROJECT CANCEL BUTTON
-    sidebarProjectsAddProjectCancel.addEventListener('click', () => {
-        sidebarProjectsAdd.classList.remove('sidebar-projects-add-inactive');
-        sidebarProjectsAddProject.classList.remove('sidebar-projects-add-project-active');
-    });
-
-        // SIDEBAR PROJECT ADD BUTTON
-    sidebarProjectsAddProjectAdd.addEventListener('click', () => {
-        if (sidebarProjectsAddProjectInput.value !== "") {
-            projectArray.push(sidebarProjectsAddProjectInput.value);
-            clearProjects();
-            clearInputs();
-            fLocalStorage.saveLocalStorage();
-            fLocalStorage.getLocalStorage();
-            displayProjects();
-            fTasks.displayTasks();
-        } else {
-            sidebarProjectsAddProjectInput.placeholder = "Please enter something";
-        }
-    });
-
         // CREATE ALL PROJECTS
     const displayProjects = () => {
         clearProjects();

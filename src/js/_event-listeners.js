@@ -1,5 +1,5 @@
 import { fLocalStorage, taskArray, projectArray } from '../js/_local-storage.js';
-import { displayInbox, displayProject } from '../js/_displays.js';
+import { displayInbox, displayToday, displayOverdue, displayUpcoming ,displayProject } from '../js/_displays.js';
 import { fTasks } from '../js/_tasks.js';
 import { fSidebar } from '../js/_sidebar.js';
 import { clearInputs } from '../index.js';
@@ -8,8 +8,22 @@ const fEventListeners = (() => {
 
     // EVENT LISTENERS Id
     const overlay = document.getElementById('overlay'); 
+    const navbarHamburger = document.getElementById('navbar-hamburger');
+    
     const sidebarProjectsList = document.getElementById('sidebar-projects-list');
     const sidebarProjectsTitle = document.getElementById('sidebar-projects-title');
+
+    const sidebar = document.getElementById('sidebar');
+    const sidebarProjectsAdd = document.getElementById('sidebar-projects-add');
+    const sidebarProjectsAddProjectAdd = document.getElementById('list-projects-add-project-add');
+    const sidebarProjectsAddProjectCancel = document.getElementById('list-projects-add-project-cancel');
+    const sidebarProjectsAddProject = document.getElementById('sidebar-projects-add-project');
+    const sidebarProjectsAddProjectInput = document.getElementById('sidebar-projects-add-project-input');
+
+    const inbox = document.getElementById('inbox');
+    const today = document.getElementById('today');
+    const overdue = document.getElementById('overdue');
+    const upcoming = document.getElementById('upcoming');
 
     const listList = document.getElementById('list-list');
     const listTitle = document.getElementById('list-title');
@@ -27,6 +41,114 @@ const fEventListeners = (() => {
         clearInputs();
     });
 
+    // NAVBAR HAMBURGER
+    navbarHamburger.addEventListener('click', () => {
+        sidebar.classList.toggle('sidebar-closed');
+    });
+
+    // ENTER KEY EVENT LISTENER
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Enter' && document.getElementById('list-add-task').classList.contains('list-add-task-active')) {
+            document.getElementById('list-add-task-input-add').click();
+            overlay.classList.remove('overlay-active');
+            fTasks.resetTask();
+        } else if (event.key === 'Enter' && document.getElementById('sidebar-projects-add-project').classList.contains('sidebar-projects-add-project-active')) {
+            document.getElementById('list-projects-add-project-add').click();
+            overlay.classList.remove('overlay-active');
+            fTasks.resetTask();
+        }
+    });
+
+        // INBOX 
+    inbox.addEventListener('click', () => {
+        if (listTitle.textContent !== 'Inbox') {
+            displayInbox();
+        }
+    });
+    // TODAY
+    today.addEventListener('click', () => {
+        if (listTitle.textContent !== 'Today') {
+            displayToday();
+        }
+    });
+        // OVERDUE
+    overdue.addEventListener('click', () => {
+        if (listTitle.textContent !== 'Overdue') {
+            displayOverdue();
+        }
+    });
+
+        // UPCOMING
+    upcoming.addEventListener('click', () => {
+        if (listTitle.textContent !== 'Upcoming') {
+            displayUpcoming();
+        }
+    });
+
+        // SIDEBAR PROJECT ADD
+    sidebarProjectsAdd.addEventListener('click', () => {
+        overlay.classList.add('overlay-active');
+        sidebarProjectsAdd.classList.add('sidebar-projects-add-inactive');
+        sidebarProjectsAddProject.classList.add('sidebar-projects-add-project-active');
+        sidebarProjectsAddProjectInput.focus();
+    });
+
+        // SIDEBAR PROJECT CANCEL BUTTON
+    sidebarProjectsAddProjectCancel.addEventListener('click', () => {
+        sidebarProjectsAdd.classList.remove('sidebar-projects-add-inactive');
+        sidebarProjectsAddProject.classList.remove('sidebar-projects-add-project-active');
+    });
+
+        // SIDEBAR PROJECT ADD BUTTON
+    sidebarProjectsAddProjectAdd.addEventListener('click', () => {
+        if (sidebarProjectsAddProjectInput.value !== "") {
+            projectArray.push(sidebarProjectsAddProjectInput.value);
+            fSidebar.clearProjects();
+            clearInputs();
+            fLocalStorage.saveLocalStorage();
+            fLocalStorage.getLocalStorage();
+            fSidebar.displayProjects();
+            fTasks.displayTasks();
+        } else {
+            sidebarProjectsAddProjectInput.placeholder = "Please enter something";
+        }
+    });
+    
+    // SIDEBAR PROJECTS
+    sidebarProjectsList.addEventListener('click', event => {
+        let target = event.target;
+        let number = event.target.dataset.number;
+        
+        // PROJECTS DOTS
+        if (target == document.querySelectorAll('.sidebar-projects-list-project-dots')[number]) {
+            document.querySelectorAll('.sidebar-projects-list-project-dropdown')[number].classList.add('sidebar-projects-list-project-dropdown-active');
+            overlay.classList.add('overlay-active');
+        }
+        
+        // PROJECTS DELETE BUTTON
+        else if (target == document.querySelectorAll('.sidebar-projects-list-project-delete')[number]) {
+            for (let i = 0; i < taskArray.length; i++) {
+                if (taskArray[i].project == document.querySelectorAll('.sidebar-projects-list-project-title')[number].textContent) {
+                    taskArray.splice(i, 1);
+                }
+            }
+            if (document.querySelectorAll('.sidebar-projects-list-project-title')[number].textContent == listTitle.textContent) {
+                displayInbox();
+            } 
+            projectArray.splice(number, 1);
+            fLocalStorage.saveLocalStorage();
+            fSidebar.displayProjects();
+            fTasks.displayTasks();            
+        }
+        
+        else if (target == document.querySelectorAll('.sidebar-projects-list-project')[number] || target == document.querySelectorAll('.sidebar-projects-list-project-title')[number] || target == document.querySelectorAll('.sidebar-projects-dot')[number]) {
+            if (listTitle.textContent != projectArray[number]) {
+                displayProject(projectArray[number]);
+            }
+        }
+    });
+    
+    // TASKS
     // DISPLAY INPUT BUTTON
     listAdd.addEventListener('click', () => {
         listAdd.classList.toggle('list-add-inactive');
@@ -50,7 +172,7 @@ const fEventListeners = (() => {
             let i = 0;
 
             if (listTitle.textContent == 'Today') {
-                let date = new Date().toISOString().slice(0, 10);
+                let date = new Date().toLocaleString().slice(0, 10);
                 newTask = fTasks.addTask(title, null, date, false, i++);
             } 
 
@@ -72,54 +194,6 @@ const fEventListeners = (() => {
         }
     });
 
-    // ENTER KEY EVENT LISTENER
-    document.addEventListener('keydown', event => {
-        if (event.key === 'Enter' && document.getElementById('list-add-task').classList.contains('list-add-task-active')) {
-            document.getElementById('list-add-task-input-add').click();
-            overlay.classList.remove('overlay-active');
-            fTasks.resetTask();
-        } else if (event.key === 'Enter' && document.getElementById('sidebar-projects-add-project').classList.contains('sidebar-projects-add-project-active')) {
-            document.getElementById('list-projects-add-project-add').click();
-            overlay.classList.remove('overlay-active');
-            fTasks.resetTask();
-        }
-    });
-
-    // SIDEBAR 
-    sidebarProjectsList.addEventListener('click', event => {
-        let target = event.target;
-        let number = event.target.dataset.number;
-
-        // PROJECTS DOTS
-        if (target == document.querySelectorAll('.sidebar-projects-list-project-dots')[number]) {
-            document.querySelectorAll('.sidebar-projects-list-project-dropdown')[number].classList.add('sidebar-projects-list-project-dropdown-active');
-            overlay.classList.add('overlay-active');
-        }
-
-        // PROJECTS DELETE BUTTON
-        else if (target == document.querySelectorAll('.sidebar-projects-list-project-delete')[number]) {
-            for (let i = 0; i < taskArray.length; i++) {
-                if (taskArray[i].project == document.querySelectorAll('.sidebar-projects-list-project-title')[number].textContent) {
-                    taskArray.splice(i, 1);
-                }
-            }
-            if (document.querySelectorAll('.sidebar-projects-list-project-title')[number].textContent == listTitle.textContent) {
-                displayInbox();
-            } 
-            projectArray.splice(number, 1);
-            fLocalStorage.saveLocalStorage();
-            fSidebar.displayProjects();
-            fTasks.displayTasks();            
-        }
-
-        else if (target == document.querySelectorAll('.sidebar-projects-list-project')[number] || target == document.querySelectorAll('.sidebar-projects-list-project-title')[number] || target == document.querySelectorAll('.sidebar-projects-dot')[number]) {
-            if (listTitle.textContent != projectArray[number]) {
-                displayProject(projectArray[number]);
-            }
-        }
-    });
-
-    // TASKS
     listList.addEventListener('click', event => {
         let target = event.target;
         let number = event.target.dataset.number;
@@ -128,6 +202,7 @@ const fEventListeners = (() => {
         if (number) {
             for (let i = 0; i < taskArray.length; i++) {
                 for (let y = 0; y < document.querySelectorAll('.list-list-task').length; y++) {
+                    // TASK DOT
                     if (target == document.querySelectorAll('.done-dot')[y]
                     && document.querySelectorAll('.list-list-task-text-title')[y].textContent == taskArray[i].title
                     && number == taskArray[i].index) {
@@ -138,6 +213,15 @@ const fEventListeners = (() => {
                         }
                         fLocalStorage.saveLocalStorage();
                         fTasks.displayTasks();
+                    }
+                    // TASK DATE
+                    else if (target == document.querySelectorAll('.list-list-date')[y]
+                    && document.querySelectorAll('.list-list-task-text-title')[y].textContent == taskArray[i].title
+                    && number == taskArray[i].index) {
+                        overlay.classList.add('overlay-active');
+                        document.querySelectorAll('.list-list-task-dropdown')[y].classList.add('list-list-task-dropdown-active');
+                        document.querySelectorAll('.list-list-task-dropdown-date')[y].classList.add('list-list-task-dropdown-date-inactive');
+                        document.querySelectorAll('.list-list-task-dropdown-date-input')[y].classList.add('list-list-task-dropdown-date-input-active');
                     }
                     // TASK DOTS
                     else if (target == document.querySelectorAll('.list-list-task-dots')[y]) {
@@ -172,7 +256,13 @@ const fEventListeners = (() => {
                     else if (target == document.querySelectorAll('.list-list-task-dropdown-date-input-button')[y]) {
                         for (let i = 0; i < taskArray.length; i++) {
                             if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && taskArray[i].index == number) {
-                                taskArray[i].date = document.querySelectorAll('.list-list-task-dropdown-date-input-date')[y].value;
+                                let newDate0 = document.querySelectorAll('.list-list-task-dropdown-date-input-date')[y].value;
+                                let newDate1 = newDate0.slice(0, 4);
+                                let newDate2 = newDate0.slice(5, 7);
+                                let newDate3 = newDate0.slice(8, 10);
+                                let newDate = newDate3 + '/' + newDate2 + '/' + newDate1;
+                                taskArray[i].date = newDate;
+                                console.log(taskArray)
                             }
                         }
                         fLocalStorage.saveLocalStorage();

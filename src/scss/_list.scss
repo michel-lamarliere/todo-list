@@ -16,6 +16,7 @@
    
     &-title {
         align-self: flex-start;
+        margin-bottom: 2rem;
     }
 
     &-list {
@@ -197,11 +198,9 @@
         }
     }
 
-
     &-add {
         display: flex;
         width: 100%;
-        margin-top: 2rem;
         height: 2.5rem;
         font-size: 20px;
         align-self: flex-start;
@@ -225,7 +224,6 @@
             display: none;
             width: 100%;
             height: 2.5rem;
-            margin-top: 2rem;
             z-index: 2;
 
             &-input {

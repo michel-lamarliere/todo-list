@@ -25,23 +25,29 @@ const fTasks = (() => {
                     createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date, taskArray[i].done, taskArray[i].index = i);
                 }
             }
-            // fTasks.setAttributesTasks();  
         // OVERDUE 
         } else if (listTitle.textContent === 'Overdue') {
             for (let i = 0; i < taskArray.length; i++) {
-                if (taskArray[i].date !== null && taskArray[i].date.valueOf() < new Date().toISOString().slice(0, 10)) {
+                if (taskArray[i].date !== null && taskArray[i].date.valueOf() < new Date().toLocaleString().slice(0, 10)) {
                     createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date, taskArray[i].done, taskArray[i].index = i);
                 }
             }
         // TODAY
         } else if (listTitle.textContent === 'Today') {
             for (let i = 0; i < taskArray.length; i++) {
-                if (taskArray[i].date == new Date().toISOString().slice(0, 10)) {
+                if (taskArray[i].date == new Date().toLocaleString().slice(0, 10)) {
+                    createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date.toLocaleString(), taskArray[i].done, taskArray[i].index = i);
+                }
+            }
+        // UPCOMING
+        } else if (listTitle.textContent === 'Upcoming') {
+            for (let i = 0; i < taskArray.length; i++) {
+                if (taskArray[i].date > new Date().toLocaleString().slice(0, 10)) {
                     createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date, taskArray[i].done, taskArray[i].index = i);
                 }
             }
         // PROJECTS
-        } else {
+        }  else {
             for (let i = 0; i < taskArray.length; i++) {
                 if (taskArray[i].project == listTitle.textContent) {
                     createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date, taskArray[i].done, taskArray[i].index = i);
@@ -55,11 +61,11 @@ const fTasks = (() => {
                 if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index && taskArray[i].done == true) {
                     document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-done');
                 }
-                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index && taskArray[i].date !== null && new Date().toISOString().slice(0, 10) > taskArray[i].date.valueOf()) {
+                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index && taskArray[i].date !== null && new Date().toLocaleString().slice(0, 10) > taskArray[i].date.valueOf()) {
                     document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-overdue');
                     document.querySelectorAll('.list-list-date')[y].classList.add('list-list-date-overdue');
                 }
-                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index && taskArray[i].done == true &&  taskArray[i].date !== null && new Date().toISOString().slice(0, 10) > taskArray[i].date.valueOf()) {
+                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index && taskArray[i].done == true &&  taskArray[i].date !== null && new Date().toLocaleString().slice(0, 10) > taskArray[i].date.valueOf()) {
                     document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-done-overdue');
                     document.querySelectorAll('.list-list-date')[y].classList.add('list-list-date-done-overdue');
                 }
@@ -82,11 +88,13 @@ const fTasks = (() => {
         listListTask.appendChild(listListDay);
 
         // DATE 
-        let listListTaskDate = document.createElement('div');
-        listListTaskDate.textContent = date;
-        listListTaskDate.dataset.number = index;
-        listListTaskDate.classList.add('list-list-date');
-        listListTask.appendChild(listListTaskDate);
+        if (date != null) {
+            let listListTaskDate = document.createElement('div');
+            listListTaskDate.textContent = date.toLocaleString();
+            listListTaskDate.dataset.number = index;
+            listListTaskDate.classList.add('list-list-date');
+            listListTask.appendChild(listListTaskDate);
+        }
 
         // DOT
         let doneDot = document.createElement('div');
@@ -231,7 +239,15 @@ const fTasks = (() => {
         }
     }
 
-    return { addTask, displayTasks, clearTasks, resetTask };
+    const displayInputOrNot = () => {
+        if (listTitle.textContent === 'Overdue' || listTitle.textContent === 'Upcoming') {
+            listAdd.classList.add('list-add-inactive');
+        } else {
+            listAdd.classList.remove('list-add-inactive');
+        }
+    }
+
+    return { addTask, displayTasks, clearTasks, resetTask, displayInputOrNot };
 })();
 
 export {

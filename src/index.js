@@ -5,8 +5,6 @@ import { fTasks } from './js/_tasks.js';
 import { fEventListeners } from './js/_event-listeners.js'
 import style from './style.css'
 
-
-
 const clearInputs = () => {
     const listAddTaskInput = document.getElementById('list-add-task-input');
     const sidebarProjectsAddProjectInput = document.getElementById('sidebar-projects-add-project-input');
