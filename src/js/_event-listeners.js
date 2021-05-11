@@ -104,11 +104,12 @@ const fEventListeners = (() => {
         if (sidebarProjectsAddProjectInput.value !== "") {
             projectArray.push(sidebarProjectsAddProjectInput.value);
             fSidebar.clearProjects();
-            clearInputs();
             fLocalStorage.saveLocalStorage();
             fLocalStorage.getLocalStorage();
             fSidebar.displayProjects();
             fTasks.displayTasks();
+            displayProject(sidebarProjectsAddProjectInput.value);
+            clearInputs();
         } else {
             sidebarProjectsAddProjectInput.placeholder = "Please enter something";
         }

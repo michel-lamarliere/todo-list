@@ -21,7 +21,6 @@
 
     &-list {
         width: 100%;
-        margin-top: 1rem;
 
         &-task {
             position: relative;
@@ -203,6 +202,7 @@
         width: 100%;
         height: 2.5rem;
         font-size: 20px;
+        margin-bottom: 1rem;
         align-self: flex-start;
         cursor: pointer;
 
