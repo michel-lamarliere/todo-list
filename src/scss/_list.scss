@@ -164,7 +164,6 @@
                             width: 11rem;
                             text-indent: 0.5rem;
                         }
-            
                     }
                 }
                 &-delete {
@@ -184,6 +183,17 @@
             position: absolute;
             font-size: 15px;
             right: 3rem;
+
+            &-overdue {
+                color: $colorOverdue;
+            }
+
+            &-done {
+
+                &-overdue {
+                    color: $colorDoneOverdue;
+                }
+            }
         }
     }
 

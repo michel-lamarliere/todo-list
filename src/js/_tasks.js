@@ -57,9 +57,11 @@ const fTasks = (() => {
                 }
                 if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index && taskArray[i].date !== null && new Date().toISOString().slice(0, 10) > taskArray[i].date.valueOf()) {
                     document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-overdue');
+                    document.querySelectorAll('.list-list-date')[y].classList.add('list-list-date-overdue');
                 }
                 if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index && taskArray[i].done == true &&  taskArray[i].date !== null && new Date().toISOString().slice(0, 10) > taskArray[i].date.valueOf()) {
                     document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-done-overdue');
+                    document.querySelectorAll('.list-list-date')[y].classList.add('list-list-date-done-overdue');
                 }
             }
         }

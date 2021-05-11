@@ -216,6 +216,12 @@
   font-size: 15px;
   right: 3rem;
 }
+.list-list-date-overdue {
+  color: #C82929;
+}
+.list-list-date-done-overdue {
+  color: #6b1515;
+}
 .list-add {
   display: flex;
   width: 100%;
