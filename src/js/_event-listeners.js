@@ -2,14 +2,90 @@ import { fLocalStorage, taskArray, projectArray } from '../js/_local-storage.js'
 import { displayInbox, displayProject } from '../js/_displays.js';
 import { fTasks } from '../js/_tasks.js';
 import { fSidebar } from '../js/_sidebar.js';
+import { clearInputs } from '../index.js';
 
 const fEventListeners = (() => {
+
+    // EVENT LISTENERS Id
+    const overlay = document.getElementById('overlay'); 
     const sidebarProjectsList = document.getElementById('sidebar-projects-list');
     const sidebarProjectsTitle = document.getElementById('sidebar-projects-title');
 
     const listList = document.getElementById('list-list');
     const listTitle = document.getElementById('list-title');
 
+    const listAdd = document.getElementById('list-add');
+    const listAddTask = document.getElementById('list-add-task');
+    const listAddTaskInput = document.getElementById('list-add-task-input');
+    const listAddTaskInputAdd = document.getElementById('list-add-task-input-add');
+    const listAddTaskInputCancel = document.getElementById('list-add-task-input-cancel');
+
+    // OVERLAY
+    overlay.addEventListener('click', () => {
+        fSidebar.resetProject();
+        fTasks.resetTask();
+        clearInputs();
+    });
+
+    // DISPLAY INPUT BUTTON
+    listAdd.addEventListener('click', () => {
+        listAdd.classList.toggle('list-add-inactive');
+        listAddTask.classList.toggle('list-add-task-active');
+        overlay.classList.add('overlay-active');
+        listAddTaskInput.focus();
+    });
+
+    // CANCEL TASK BUTTON
+    listAddTaskInputCancel.addEventListener('click', () => {
+        listAdd.classList.toggle('list-add-inactive');
+        listAddTask.classList.toggle('list-add-task-active');
+        overlay.classList.remove('overlay-active');
+    });
+   
+    // ADD TASK
+    listAddTaskInputAdd.addEventListener('click', () => {
+        if (listAddTaskInput.value !== "") {
+            let title = listAddTaskInput.value;
+            let newTask;
+            let i = 0;
+
+            if (listTitle.textContent == 'Today') {
+                let date = new Date().toISOString().slice(0, 10);
+                newTask = fTasks.addTask(title, null, date, false, i++);
+            } 
+
+            else if (listTitle.textContent !== 'Today' && listTitle.textContent !== 'Inbox') {
+                newTask = fTasks.addTask(title, listTitle.textContent, null, false, i++)
+            }
+
+            else {
+                newTask = fTasks.addTask(title, null, null, false, i++);
+            }
+
+            taskArray.push(newTask);
+            fLocalStorage.saveLocalStorage();
+            fTasks.clearTasks();
+            clearInputs();
+            fTasks.displayTasks();
+        } else {
+            listAddTaskInput.placeholder = 'Please enter something';
+        }
+    });
+
+    // ENTER KEY EVENT LISTENER
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Enter' && document.getElementById('list-add-task').classList.contains('list-add-task-active')) {
+            document.getElementById('list-add-task-input-add').click();
+            overlay.classList.remove('overlay-active');
+            fTasks.resetTask();
+        } else if (event.key === 'Enter' && document.getElementById('sidebar-projects-add-project').classList.contains('sidebar-projects-add-project-active')) {
+            document.getElementById('list-projects-add-project-add').click();
+            overlay.classList.remove('overlay-active');
+            fTasks.resetTask();
+        }
+    });
+
+    // SIDEBAR 
     sidebarProjectsList.addEventListener('click', event => {
         let target = event.target;
         let number = event.target.dataset.number;
@@ -123,7 +199,6 @@ const fEventListeners = (() => {
             }
         }
     });
-
 })();
 
 export {

@@ -5,14 +5,7 @@ import { fTasks } from './js/_tasks.js';
 import { fEventListeners } from './js/_event-listeners.js'
 // import style from './style.css'
 
-// EVENT LISTENERS Id
-const overlay = document.getElementById('overlay'); 
 
-    // OVERLAY
-overlay.addEventListener('click', () => {
-    fSidebar.resetProject();
-    fTasks.resetTask();
-});
 
 const clearInputs = () => {
     const listAddTaskInput = document.getElementById('list-add-task-input');

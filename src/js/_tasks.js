@@ -10,9 +10,6 @@ const fTasks = (() => {
     // TASKS INPUT AND BUTTONS
     const listAdd = document.getElementById('list-add');
     const listAddTask = document.getElementById('list-add-task');
-    const listAddTaskInput = document.getElementById('list-add-task-input');
-    const listAddTaskInputAdd = document.getElementById('list-add-task-input-add');
-    const listAddTaskInputCancel = document.getElementById('list-add-task-input-cancel');
 
     // ADD CONSTRUCTOR
     const addTask = (title, project, date, done, index) => {
@@ -52,13 +49,17 @@ const fTasks = (() => {
             }
         }
 
+        // DONE AND OVERDUE
         for (let i = 0; i < taskArray.length; i++) {
             for (let y = 0; y < document.querySelectorAll('.list-list-task-text-title').length; y++) {
+                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index && taskArray[i].done == true) {
+                    document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-done');
+                }
                 if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index && taskArray[i].date !== null && new Date().toISOString().slice(0, 10) > taskArray[i].date.valueOf()) {
                     document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-overdue');
                 }
-                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index && taskArray[i].done == true) {
-                    document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-done');
+                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index && taskArray[i].done == true &&  taskArray[i].date !== null && new Date().toISOString().slice(0, 10) > taskArray[i].date.valueOf()) {
+                    document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-done-overdue');
                 }
             }
         }
@@ -228,65 +229,7 @@ const fTasks = (() => {
         }
     }
 
-    // EVENT LISTENERS
-        // DISPLAY INPUT BUTTON
-    listAdd.addEventListener('click', () => {
-        listAdd.classList.toggle('list-add-inactive');
-        listAddTask.classList.toggle('list-add-task-active');
-        overlay.classList.add('overlay-active');
-        listAddTaskInput.focus();
-    });
-
-        // CANCEL TASK BUTTON
-    listAddTaskInputCancel.addEventListener('click', () => {
-        listAdd.classList.toggle('list-add-inactive');
-        listAddTask.classList.toggle('list-add-task-active');
-        overlay.classList.remove('overlay-active');
-    });
-   
-        // ADD TASK
-    listAddTaskInputAdd.addEventListener('click', () => {
-        if (listAddTaskInput.value !== "") {
-            let title = listAddTaskInput.value;
-            let newTask;
-            let i = 0;
-
-            if (listTitle.textContent == 'Today') {
-                let date = new Date().toISOString().slice(0, 10);
-                newTask = addTask(title, null, date, false, i++);
-            } 
-
-            else if (listTitle.textContent !== 'Today' && listTitle.textContent !== 'Inbox') {
-                newTask = addTask(title, listTitle.textContent, null, false, i++)
-            }
-
-            else {
-                newTask = addTask(title, null, null, false, i++);
-            }
-
-            taskArray.push(newTask);
-            fLocalStorage.saveLocalStorage();
-            clearTasks();
-            clearInputs();
-            displayTasks();
-        } else {
-            listAddTaskInput.placeholder = 'Please enter something';
-        }
-    });
-
-    // ENTER KEY EVENT LISTENER
-    document.addEventListener('keydown', event => {
-        if (event.key === 'Enter' && document.getElementById('list-add-task').classList.contains('list-add-task-active')) {
-            document.getElementById('list-add-task-input-add').click();
-            overlay.classList.remove('overlay-active');
-            resetTask();
-        } else if (event.key === 'Enter' && document.getElementById('sidebar-projects-add-project').classList.contains('sidebar-projects-add-project-active')) {
-            document.getElementById('list-projects-add-project-add').click();
-            overlay.classList.remove('overlay-active');
-            resetTask();
-        }
-    });
-    return { displayTasks, clearTasks, resetTask };
+    return { addTask, displayTasks, clearTasks, resetTask };
 })();
 
 export {

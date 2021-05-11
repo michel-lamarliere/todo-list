@@ -120,6 +120,10 @@
   color: #333333;
   text-decoration: line-through;
 }
+.list-list-task-text-title-done-overdue {
+  color: #6b1515 !important;
+  text-decoration: line-through;
+}
 .list-list-task-text-title-overdue {
   color: #C82929;
 }
