@@ -8,7 +8,6 @@ const displayInbox = () => {
     fLocalStorage.getLocalStorage();
     fTasks.displayTasks();
     fTasks.displayInputOrNot();
-    console.log(taskArray)
 };
 
 const displayOverdue = () => {

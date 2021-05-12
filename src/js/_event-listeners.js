@@ -263,7 +263,6 @@ const fEventListeners = (() => {
                                 let newDate3 = newDate0.slice(8, 10);
                                 let newDate = newDate3 + '/' + newDate2 + '/' + newDate1;
                                 taskArray[i].date = newDate;
-                                console.log(taskArray)
                             }
                         }
                         fLocalStorage.saveLocalStorage();

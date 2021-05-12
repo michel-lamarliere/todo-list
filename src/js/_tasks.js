@@ -81,7 +81,6 @@ const fTasks = (() => {
         listList.appendChild(listListTask);
         
         // TASK TITLE CONTAINER
-       
         let listListDay = document.createElement('div');
         listListDay.classList.add('list-list-task-text');
         listListDay.dataset.number = index;
@@ -96,7 +95,7 @@ const fTasks = (() => {
             listListTask.appendChild(listListTaskDate);
         }
 
-        // DOT
+        // DONE DOT
         let doneDot = document.createElement('div');
         doneDot.dataset.number = index;
         doneDot.classList.add('main-dot');
@@ -151,11 +150,15 @@ const fTasks = (() => {
         listListTaskDropdownProjectInputInputOptionNull.textContent = 'No Project';
         listListTaskDropdownProjectInputInputOptionNull.value = 'No Project';
         listListTaskDropdownProjectInputInput.appendChild(listListTaskDropdownProjectInputInputOptionNull);
+
         for (let i = 0; i < projectArray.length; i++) {
             let listListTaskDropdownProjectInputInputOption = document.createElement('option');
             listListTaskDropdownProjectInputInputOption.dataset.number = index;
             listListTaskDropdownProjectInputInputOption.textContent = projectArray[i];
             listListTaskDropdownProjectInputInputOption.value = projectArray[i];
+            if (projectArray[i] == project) {
+                listListTaskDropdownProjectInputInputOption.selected = true;
+            }
             listListTaskDropdownProjectInputInput.appendChild(listListTaskDropdownProjectInputInputOption);
         }
         
@@ -186,6 +189,13 @@ const fTasks = (() => {
         listListTaskDropdownDateInputDate.type = 'date';
         listListTaskDropdownDateInputDate.value = date;
         listListTaskDropdownDateInputDate.classList.add('list-list-task-dropdown-date-input-date');
+        if (date != null) {
+            let newDate1 = date.slice(0, 2);
+            let newDate2 = date.slice(3, 5);
+            let newDate3 = date.slice(6, 10);
+            let newDate = newDate3 + '-' + newDate2 + '-' + newDate1;
+            listListTaskDropdownDateInputDate.value = newDate;
+        }
         listListTaskDropdownDateInput.appendChild(listListTaskDropdownDateInputDate);
 
                     // INPUT BUTTON
