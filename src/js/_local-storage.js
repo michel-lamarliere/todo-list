@@ -1,19 +1,18 @@
-// LOCAL STORAGE
 let taskArray = [];
 let projectArray = [];
 
+// LOCAL STORAGE
 const fLocalStorage = (() => {
-
     const saveLocalStorage = () => {
-        localStorage.setItem("taskArray", JSON.stringify(taskArray));
-        localStorage.setItem("projectArray", JSON.stringify(projectArray));
-    }
-    
-    function getLocalStorage() {
-        let storageTask = JSON.parse(localStorage.getItem("taskArray"));
-        let storageProject = JSON.parse(localStorage.getItem("projectArray"));
+        localStorage.setItem('taskArray', JSON.stringify(taskArray));
+        localStorage.setItem('projectArray', JSON.stringify(projectArray));
+    };
 
-        if (storageTask != taskArray) {
+    function getLocalStorage() {
+        const storageTask = JSON.parse(localStorage.getItem('taskArray'));
+        const storageProject = JSON.parse(localStorage.getItem('projectArray'));
+
+        if (storageTask !== taskArray) {
             taskArray = [];
             taskArray.push(...storageTask);
         }
@@ -23,11 +22,14 @@ const fLocalStorage = (() => {
         }
     }
 
-    return { saveLocalStorage, getLocalStorage }
-})();    
+    return {
+        saveLocalStorage,
+        getLocalStorage,
+    };
+})();
 
-export { 
+export {
     fLocalStorage as fLocalStorage,
     taskArray as taskArray,
-    projectArray as projectArray
+    projectArray as projectArray,
 };

@@ -15,9 +15,9 @@ const displayOverdue = () => {
     fLocalStorage.getLocalStorage();
     fTasks.displayTasks();
     fTasks.displayInputOrNot();
-}
+};
 
-const displayToday = () => {    
+const displayToday = () => {
     listTitle.textContent = 'Today';
     fLocalStorage.getLocalStorage();
     fTasks.displayTasks();
@@ -29,19 +29,19 @@ const displayUpcoming = () => {
     fLocalStorage.getLocalStorage();
     fTasks.displayTasks();
     fTasks.displayInputOrNot();
-}
+};
 
 const displayProject = (project) => {
     listTitle.textContent = `${project}`;
     fLocalStorage.getLocalStorage();
     fTasks.displayTasks();
     fTasks.displayInputOrNot();
-}
+};
 
-export {    
+export {
     displayInbox as displayInbox,
     displayOverdue as displayOverdue,
     displayToday as displayToday,
     displayUpcoming as displayUpcoming,
-    displayProject as displayProject
+    displayProject as displayProject,
 };
