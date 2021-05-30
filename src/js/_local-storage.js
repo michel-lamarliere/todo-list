@@ -8,7 +8,7 @@ const fLocalStorage = (() => {
         localStorage.setItem('projectArray', JSON.stringify(projectArray));
     };
 
-    function getLocalStorage() {
+    const getLocalStorage = () => {
         const storageTask = JSON.parse(localStorage.getItem('taskArray'));
         const storageProject = JSON.parse(localStorage.getItem('projectArray'));
 
@@ -22,14 +22,11 @@ const fLocalStorage = (() => {
         }
     }
 
-    return {
-        saveLocalStorage,
-        getLocalStorage,
-    };
+    return { saveLocalStorage, getLocalStorage };
 })();
 
 export {
     fLocalStorage as fLocalStorage,
     taskArray as taskArray,
-    projectArray as projectArray,
+    projectArray as projectArray
 };

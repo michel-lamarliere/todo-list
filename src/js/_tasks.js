@@ -213,6 +213,9 @@ const fTasks = (() => {
         } else if (listTitle.textContent === 'Overdue') {
             for (let i = 0; i < taskArray.length; i++) {
                 if (taskArray[i].date !== null && taskArray[i].date.valueOf() < new Date().toLocaleString().slice(0, 10)) {
+
+                    console.log(new Date().toLocaleString().slice(0, 10))
+                    console.log(taskArray[i].date.valueOf())
                     createTasks(taskArray[i].title, taskArray[i].project, taskArray[i].date, taskArray[i].done, taskArray[i].index = i);
                 }
             }
@@ -242,14 +245,27 @@ const fTasks = (() => {
         // DONE AND OVERDUE
         for (let i = 0; i < taskArray.length; i++) {
             for (let y = 0; y < document.querySelectorAll('.list-list-task-text-title').length; y++) {
+                // DONE
                 if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index && taskArray[i].done == true) {
                     document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-done');
                 }
-                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index && taskArray[i].date !== null && new Date().toLocaleString().slice(0, 10) > taskArray[i].date.valueOf()) {
+                // OVERDUE
+                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent
+                && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index
+                && taskArray[i].date !== null && new Date().toLocaleString().slice(0, 10) > taskArray[i].date.valueOf()
+                && new Date().toLocaleString().slice(3, 5) >= taskArray[i].date.valueOf().slice(3, 5)
+                && new Date().toLocaleString().slice(6, 10) >= taskArray[i].date.valueOf().slice(6, 10)) {
                     document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-overdue');
                     document.querySelectorAll('.list-list-date')[y].classList.add('list-list-date-overdue');
                 }
-                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index && taskArray[i].done == true && taskArray[i].date !== null && new Date().toLocaleString().slice(0, 10) > taskArray[i].date.valueOf()) {
+                // DONE AND OVERDUE
+                if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent
+                && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index
+                && taskArray[i].done == true
+                && taskArray[i].date !== null
+                && new Date().toLocaleString().slice(0, 10) > taskArray[i].date.valueOf()
+                && new Date().toLocaleString().slice(3, 5) >= taskArray[i].date.valueOf().slice(3, 5)
+                && new Date().toLocaleString().slice(6, 10) >= taskArray[i].date.valueOf().slice(6, 10)) {
                     document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-done-overdue');
                     document.querySelectorAll('.list-list-date')[y].classList.add('list-list-date-done-overdue');
                 }
