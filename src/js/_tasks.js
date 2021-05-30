@@ -252,9 +252,9 @@ const fTasks = (() => {
                 // OVERDUE
                 if (taskArray[i].title == document.querySelectorAll('.list-list-task-text-title')[y].textContent
                 && document.querySelectorAll('.list-list-task-text-title')[y].dataset.number == taskArray[i].index
-                && taskArray[i].date !== null && new Date().toLocaleString().slice(0, 10) > taskArray[i].date.valueOf()
+                && (taskArray[i].date !== null && new Date().toLocaleString().slice(0, 10) > taskArray[i].date.valueOf()
                 && new Date().toLocaleString().slice(3, 5) >= taskArray[i].date.valueOf().slice(3, 5)
-                && (new Date().toLocaleString().slice(6, 10) >= taskArray[i].date.valueOf().slice(6, 10)
+                && new Date().toLocaleString().slice(6, 10) >= taskArray[i].date.valueOf().slice(6, 10)
                 || new Date().toLocaleString().slice(6, 10) > taskArray[i].date.valueOf().slice(6, 10))) {
                     document.querySelectorAll('.list-list-task-text-title')[y].classList.add('list-list-task-text-title-overdue');
                     document.querySelectorAll('.list-list-date')[y].classList.add('list-list-date-overdue');
